@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Katalog Aksesoris HP</title>
+    <!-- Menghubungkan ke Tailwind CSS CDN untuk gaya modern -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+
+<body class="bg-gray-100">
+    <!-- Konten HTML -->
+    <header class="bg-white shadow-md py-4">
+        <div class="container mx-auto flex flex-col md:flex-row items-center justify-between px-4">
+            <div class="flex items-center space-x-4 mb-4 md:mb-0">
+                <!-- Logo Toko -->
+                <img src="images/LOGO.png" alt="Logo Toko" class="rounded-full w-16 h-16">
+                <h1 class="text-2xl font-bold text-teal-600">Katalog Aksesoris HP</h1>
+            </div>
+
+            <!-- Bagian Pencarian -->
+            <div class="w-full md:w-auto">
+                <div class="relative flex items-center border border-gray-300 rounded-full overflow-hidden">
+                    <input type="text" id="searchInput" placeholder="Cari produk..."
+                        class="w-full px-4 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-teal-500">
+                    <button onclick="searchProducts()"
+                        class="bg-teal-500 text-white px-6 py-2 hover:bg-teal-600 transition-all duration-300">Cari</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section dengan Background Gambar Blur -->
+    <section class="relative text-white text-center py-20">
+        <div class="absolute inset-0">
+            <img src="images/Bag.webp" alt="Background" class="w-full h-full object-cover brightness-75">
+            <div class="absolute inset-0 bg-teal-800 opacity-50"></div> <!-- Overlay tambahan -->
+        </div>
+        <div class="relative z-10 container mx-auto px-4">
+            <h1 class="text-4xl md:text-5xl font-extrabold mb-4">Temukan aksesoris handphone kamu disini</h1>
+            <p class="text-lg md:text-xl font-light">Koleksi aksesoris handphone terlengkap dengan harga terjangkau</p>
+        </div>
+    </section>
+
+
+    <div class="container my-8">
+        <!-- Tombol filter kategori -->
+        <div class="flex flex-wrap gap-2 md:gap-4 justify-center">
+            <button
+                class="category-btn active px-6 py-2 rounded-full border border-gray-300 text-sm font-medium transition-colors"
+                onclick="filterProducts('all', event)">Semua</button>
+            <button
+                class="category-btn px-6 py-2 rounded-full border border-gray-300 bg-white text-sm font-medium transition-colors hover:bg-gray-200"
+                onclick="filterProducts('case', event)">Case</button>
+            <button
+                class="category-btn px-6 py-2 rounded-full border border-gray-300 bg-white text-sm font-medium transition-colors hover:bg-gray-200"
+                onclick="filterProducts('charger', event)">Charger</button>
+            <button
+                class="category-btn px-6 py-2 rounded-full border border-gray-300 bg-white text-sm font-medium transition-colors hover:bg-gray-200"
+                onclick="filterProducts('audio', event)">Audio</button>
+            <button
+                class="category-btn px-6 py-2 rounded-full border border-gray-300 bg-white text-sm font-medium transition-colors hover:bg-gray-200"
+                onclick="filterProducts('kamera', event)">Kamera & Pencahayaan</button>
+            <button
+                class="category-btn px-6 py-2 rounded-full border border-gray-300 bg-white text-sm font-medium transition-colors hover:bg-gray-200"
+                onclick="filterProducts('accessory', event)">Lainnya</button>
+        </div>
+    </div>
+
+    <section class="products-section pb-16">
+        <div class="container">
+            <h2 class="section-title text-3xl font-bold text-center mb-8">Produk Unggulan</h2>
+            <div class="products-grid grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" id="productsGrid">
+
+                <!-- Produk Case -->
+                <div class="product-card bg-white p-6 rounded-2xl shadow-md" data-category="case"
+                    data-name="Case Silikon Premium">
+                    <!-- Ganti emoji 📱 jadi gambar -->
+                    <div class="product-image text-center mb-4">
+                        <img src="images/CaseHpp.jpg" alt="Case Silikon Premium"
+                            class="mx-auto w-32 h-32 object-cover rounded-lg">
+                    </div>
+
+                    <h3 class="product-title text-xl font-semibold mb-2">
+                        <a href="case.html" class="text-teal-600 hover:underline">
+                            Case Silikon Premium
+                        </a>
+                    </h3>
+                    <p class="product-description text-gray-500 text-sm mb-4">
+                        Case silikon berkualitas tinggi dengan perlindungan maksimal
+                    </p>
+
+
+                    <div class="rating flex items-center mb-4">
+                        <span class="stars text-yellow-400">⭐⭐⭐⭐⭐</span>
+                        <span class="text-gray-500 text-xs ml-2">(4.8/5) 150 review</span>
+                    </div>
+
+                    <ul class="features list-disc list-inside text-gray-600 text-sm space-y-1 mb-4">
+                        <li>Material silikon premium</li>
+                        <li>Anti-slip dan fingerprint</li>
+                        <li>Perlindungan drop 2 meter</li>
+                        <li>Berbagai pilihan warna</li>
+                    </ul>
+
+                    <div class="product-price text-2xl font-bold text-teal-500 mb-4">Rp 85.000</div>
+                    <button
+                        class="add-to-cart w-full bg-teal-500 text-white py-3 rounded-xl font-medium transition-all duration-300 hover:bg-teal-600 focus:outline-none">
+                        Tambah ke Keranjang
+                    </button>
+                </div>
+
+
+
+                <div class="product-card bg-white p-6 rounded-2xl shadow-md" data-category="case"
+                    data-name="Case Armor Military">
+                    <div class="product-image text-center mb-4">
+                        <img src="images/CaseArmor.jpg" alt="Case Silikon Premium"
+                            class="mx-auto w-32 h-32 object-cover rounded-lg">
+                    </div>
+                    <h3 class="product-title text-xl font-semibold mb-2">Case Armor Military</h3>
+                    <p class="product-description text-gray-500 text-sm mb-4">Case dengan perlindungan militer untuk
+                        aktivitas ekstrem</p>
+                    <div class="rating flex items-center mb-4">
+                        <span class="stars text-yellow-400">⭐⭐⭐⭐⭐</span>
+                        <span class="text-gray-500 text-xs ml-2">(4.9/5) 89 review</span>
+                    </div>
+                    <ul class="features list-disc list-inside text-gray-600 text-sm space-y-1 mb-4">
+                        <li>Standar militer MIL-STD-810G</li>
+                        <li>Tahan benturan ekstrem</li>
+                        <li>Built-in kickstand</li>
+                        <li>Akses port mudah</li>
+                    </ul>
+                    <div class="product-price text-2xl font-bold text-teal-500 mb-4">Rp 150.000</div>
+                    <button
+                        class="add-to-cart w-full bg-teal-500 text-white py-3 rounded-xl font-medium transition-all duration-300 hover:bg-teal-600 focus:outline-none">Tambah
+                        ke Keranjang</button>
+                </div>
+
+                <div class="product-card bg-white p-6 rounded-2xl shadow-md" data-category="case"
+                    data-name="Case Transparan Clear">
+                    <div class="product-image text-center mb-4">
+                        <img src="images/CaseTransparan.webp" alt="Case Silikon Premium"
+                            class="mx-auto w-32 h-32 object-cover rounded-lg">
+                    </div>
+                    <h3 class="product-title text-xl font-semibold mb-2">Case Transparan Clear</h3>
+                    <p class="product-description text-gray-500 text-sm mb-4">Case transparan yang mempertahankan desain
+                        original HP</p>
+                    <div class="rating flex items-center mb-4">
+                        <span class="stars text-yellow-400">⭐⭐⭐⭐</span>
+                        <span class="text-gray-500 text-xs ml-2">(4.6/5) 203 review</span>
+                    </div>
+                    <ul class="features list-disc list-inside text-gray-600 text-sm space-y-1 mb-4">
+                        <li>Material PC transparan</li>
+                        <li>Anti-yellowing technology</li>
+                        <li>Ultra-thin 1.2mm</li>
+                        <li>Precise cutouts</li>
+                    </ul>
+                    <div class="product-price text-2xl font-bold text-teal-500 mb-4">Rp 65.000</div>
+                    <button
+                        class="add-to-cart w-full bg-teal-500 text-white py-3 rounded-xl font-medium transition-all duration-300 hover:bg-teal-600 focus:outline-none">Tambah
+                        ke Keranjang</button>
+                </div>
+
+                <!-- Produk Charger -->
+                <div class="product-card bg-white p-6 rounded-2xl shadow-md" data-category="charger"
+                    data-name="Fast Charger 65W">
+                    <div class="product-image text-center mb-4">
+                        <img src="images/Casrger.jpg" alt="Case Silikon Premium"
+                            class="mx-auto w-32 h-32 object-cover rounded-lg">
+                    </div>
+                    <h3 class="product-title text-xl font-semibold mb-2">Fast Charger 65W</h3>
+                    <p class="product-description text-gray-500 text-sm mb-4">Charger cepat dengan teknologi GaN untuk
+                        pengisian efisien</p>
+                    <div class="rating flex items-center mb-4">
+                        <span class="stars text-yellow-400">⭐⭐⭐⭐⭐</span>
+                        <span class="text-gray-500 text-xs ml-2">(4.9/5) 312 review</span>
+                    </div>
+                    <ul class="features list-disc list-inside text-gray-600 text-sm space-y-1 mb-4">
+                        <li>Fast charging 65W PD</li>
+                        <li>Teknologi GaN terbaru</li>
+                        <li>Multi-device charging</li>
+                        <li>Proteksi keamanan lengkap</li>
+                    </ul>
+                    <div class="product-price text-2xl font-bold text-teal-500 mb-4">Rp 275.000</div>
+                    <button
+                        class="add-to-cart w-full bg-teal-500 text-white py-3 rounded-xl font-medium transition-all duration-300 hover:bg-teal-600 focus:outline-none">Tambah
+                        ke Keranjang</button>
+                </div>
+
+                <div class="product-card bg-white p-6 rounded-2xl shadow-md" data-category="charger"
+                    data-name="Wireless Charger Stand">
+                    <div class="product-image text-center mb-4">
+                        <img src="images/casewairles.webp" alt="Case Silikon Premium"
+                            class="mx-auto w-32 h-32 object-cover rounded-lg">
+                    </div>
+                    <h3 class="product-title text-xl font-semibold mb-2">Wireless Charger Stand</h3>
+                    <p class="product-description text-gray-500 text-sm mb-4">Charging stand nirkabel dengan LED
+                        indicator</p>
+                    <div class="rating flex items-center mb-4">
+                        <span class="stars text-yellow-400">⭐⭐⭐⭐</span>
+                        <span class="text-gray-500 text-xs ml-2">(4.5/5) 178 review</span>
+                    </div>
+                    <ul class="features list-disc list-inside text-gray-600 text-sm space-y-1 mb-4">
+                        <li>Wireless charging 15W</li>
+                        <li>Adjustable viewing angle</li>
+                        <li>LED status indicator</li>
+                        <li>Compatible Qi devices</li>
+                    </ul>
+                    <div class="product-price text-2xl font-bold text-teal-500 mb-4">Rp 189.000</div>
+                    <button
+                        class="add-to-cart w-full bg-teal-500 text-white py-3 rounded-xl font-medium transition-all duration-300 hover:bg-teal-600 focus:outline-none">Tambah
+                        ke Keranjang</button>
+                </div>
+
+                <div class="product-card bg-white p-6 rounded-2xl shadow-md" data-category="charger"
+                    data-name="Car Charger Dual Port">
+                    <div class="product-image text-center mb-4">
+                        <img src="images/CargerDualport.jpeg" alt="Case Silikon Premium"
+                            class="mx-auto w-32 h-32 object-cover rounded-lg">
+                    </div>
+                    <h3 class="product-title text-xl font-semibold mb-2">Charger Dual Port</h3>
+                    <p class="product-description text-gray-500 text-sm mb-4">Charger mobil dengan dual port USB untuk
+                        perjalanan</p>
+                    <div class="rating flex items-center mb-4">
+                        <span class="stars text-yellow-400">⭐⭐⭐⭐</span>
+                        <span class="text-gray-500 text-xs ml-2">(4.4/5) 95 review</span>
+                    </div>
+                    <ul class="features list-disc list-inside text-gray-600 text-sm space-y-1 mb-4">
+                        <li>Dual USB port output</li>
+                        <li>Quick Charge 3.0</li>
+                        <li>LED voltage display</li>
+                        <li>Universal compatibility</li>
+                    </ul>
+                    <div class="product-price text-2xl font-bold text-teal-500 mb-4">Rp 125.000</div>
+                    <button
+                        class="add-to-cart w-full bg-teal-500 text-white py-3 rounded-xl font-medium transition-all duration-300 hover:bg-teal-600 focus:outline-none">Tambah
+                        ke Keranjang</button>
+                </div>
+                <div class="product-card bg-white p-6 rounded-2xl shadow-md" data-category="charger"
+                    data-name="USB-C Wall Charger">
+                    <div class="product-image text-center mb-4">
+                        <img src="images/typec.jpg" alt="Charger USB-C"
+                            class="mx-auto w-32 h-32 object-cover rounded-lg">
+                    </div>
+
+                    <h3 class="product-title text-xl font-semibold mb-2">Charger USB-C 20W </h3>
+
+                    <p class="product-description text-gray-500 text-sm mb-4">
+                        Charger dinding berdaya tinggi dengan koneksi USB-C untuk pengisian cepat dan efisien pada
+                        berbagai perangkat modern.
+                    </p>
+
+                    <div class="rating flex items-center mb-4">
+                        <span class="stars text-yellow-400">⭐⭐⭐⭐⭐</span>
+                        <span class="text-gray-500 text-xs ml-2">(4.8/5) 150 ulasan</span>
+                    </div>
+
+                    <ul class="features list-disc list-inside text-gray-600 text-sm space-y-1 mb-4">
+                        <li>Daya 20W dengan teknologi Fast Charging</li>
+                        <li>Dukungan untuk perangkat iPhone & Android</li>
+
+                    </ul>
+
+                    <div class="product-price text-2xl font-bold text-teal-500 mb-4">Rp 135.000</div>
+
+                    <button
+                        class="add-to-cart w-full bg-teal-500 text-white py-3 rounded-xl font-medium transition-all duration-300 hover:bg-teal-600 focus:outline-none">
+                        Tambah ke Keranjang
+                    </button>
+                </div>
+
+
+
+
+                <!-- Produk Audio -->
+                <div class="product-card bg-white p-6 rounded-2xl shadow-md" data-category="audio"
+                    data-name="TWS Earbuds Pro">
+                    <div class="product-image text-center mb-4">
+                        <img src="images/TWS.webp" alt="Case Silikon Premium"
+                            class="mx-auto w-32 h-32 object-cover rounded-lg">
+                    </div>
+                    <h3 class="product-title text-xl font-semibold mb-2">TWS Earbuds Pro</h3>
+                    <p class="product-description text-gray-500 text-sm mb-4">Earbuds nirkabel dengan noise cancelling
+                        dan battery 30 jam</p>
+                    <div class="rating flex items-center mb-4">
+                        <span class="stars text-yellow-400">⭐⭐⭐⭐⭐</span>
+                        <span class="text-gray-500 text-xs ml-2">(4.8/5) 467 review</span>
+                    </div>
+                    <ul class="features list-disc list-inside text-gray-600 text-sm space-y-1 mb-4">
+                        <li>Active Noise Cancelling</li>
+                        <li>30 jam battery life</li>
+                        <li>IPX7 waterproof</li>
+                        <li>Touch control</li>
+                    </ul>
+                    <div class="product-price text-2xl font-bold text-teal-500 mb-4">Rp 450.000</div>
+                    <button
+                        class="add-to-cart w-full bg-teal-500 text-white py-3 rounded-xl font-medium transition-all duration-300 hover:bg-teal-600 focus:outline-none">Tambah
+                        ke Keranjang</button>
+                </div>
+                <div class="product-card bg-white p-6 rounded-2xl shadow-md" data-category="audio"
+                    data-name="Earphone Kabel In-Ear">
+                    <div class="product-image text-center mb-4">
+                        <img src="images/Headsed.webp" alt="Earphone Kabel In-Ear"
+                            class="mx-auto w-32 h-32 object-cover rounded-lg">
+                    </div>
+
+                    <h3 class="product-title text-xl font-semibold mb-2">Earphone Kabel In-Ear</h3>
+
+                    <p class="product-description text-gray-500 text-sm mb-4">
+                        Earphone berkabel dengan kualitas suara jernih dan bass mendalam. Desain ergonomis untuk
+                        kenyamanan pemakaian sehari-hari.
+                    </p>
+
+                    <div class="rating flex items-center mb-4">
+                        <span class="stars text-yellow-400">⭐⭐⭐⭐</span>
+                        <span class="text-gray-500 text-xs ml-2">(4.5/5) 110 ulasan</span>
+                    </div>
+
+                    <ul class="features list-disc list-inside text-gray-600 text-sm space-y-1 mb-4">
+                        <li>Suara stereo berkualitas tinggi</li>
+                        <li>Desain in-ear yang nyaman dan pas</li>
+                        <li>Kabel anti kusut & tahan lama</li>
+                        <li>Kompatibel dengan berbagai perangkat audio 3.5mm</li>
+                    </ul>
+
+                    <div class="product-price text-2xl font-bold text-teal-500 mb-4">Rp 55.000</div>
+
+                    <button
+                        class="add-to-cart w-full bg-teal-500 text-white py-3 rounded-xl font-medium transition-all duration-300 hover:bg-teal-600 focus:outline-none">
+                        Tambah ke Keranjang
+                    </button>
+                </div>
+
+
+                <div class="product-card bg-white p-6 rounded-2xl shadow-md" data-category="audio"
+                    data-name="Headphone Bluetooth KVIDIO">
+                    <div class="product-image text-center mb-4">
+                        <img src="images/Headphone.jpg" alt="Headphone Bluetooth KVIDIO"
+                            class="mx-auto w-40 h-40 object-cover rounded-lg">
+                    </div>
+
+                    <h3 class="product-title text-xl font-semibold mb-2">Headphone Bluetooth</h3>
+
+                    <p class="product-description text-gray-500 text-sm mb-4">
+                        Headphone over-ear wireless dengan kualitas suara HD dan kenyamanan maksimal. Ideal untuk musik,
+                        gaming, dan panggilan suara jernih.
+                    </p>
+
+                    <div class="rating flex items-center mb-4">
+                        <span class="stars text-yellow-400">⭐⭐⭐⭐⭐</span>
+                        <span class="text-gray-500 text-xs ml-2">(4.8/5) 320 ulasan</span>
+                    </div>
+
+                    <ul class="features list-disc list-inside text-gray-600 text-sm space-y-1 mb-4">
+                        <li>Koneksi Bluetooth 5.3 stabil & cepat</li>
+                        <li>Baterai tahan hingga 55 jam</li>
+                        <li>Desain lipat & bantalan empuk</li>
+                        <li>Mendukung kabel AUX & Micro SD</li>
+                    </ul>
+
+                    <div class="product-price text-2xl font-bold text-teal-500 mb-4">Rp 225.000</div>
+
+                    <button
+                        class="add-to-cart w-full bg-teal-500 text-white py-3 rounded-xl font-medium transition-all duration-300 hover:bg-teal-600 focus:outline-none">
+                        Tambah ke Keranjang
+                    </button>
+                </div>
+                <div class="product-card bg-white p-6 rounded-2xl shadow-md" data-category="kamera"
+                    data-name="Ring Light LED 26cm Tripod Stand">
+                    <div class="product-image text-center mb-4">
+                        <img src="images/ringligt.jpg" alt="Ring Light LED 26cm Tripod Stand"
+                            class="mx-auto w-40 h-40 object-cover rounded-lg">
+                    </div>
+
+                    <h3 class="product-title text-xl font-semibold mb-2">Ring Light LED Tripod Stand</h3>
+
+                    <p class="product-description text-gray-500 text-sm mb-4">
+                        Ring light dengan diameter 26cm, cocok untuk live streaming, makeup, konten video, dan fotografi
+                        dengan pencahayaan profesional.
+                    </p>
+
+                    <div class="rating flex items-center mb-4">
+                        <span class="stars text-yellow-400">⭐⭐⭐⭐</span>
+                        <span class="text-gray-500 text-xs ml-2">(4.6/5) 210 ulasan</span>
+                    </div>
+
+                    <ul class="features list-disc list-inside text-gray-600 text-sm space-y-1 mb-4">
+                        <li>3 Mode cahaya: putih, natural, hangat</li>
+                        <li>Dilengkapi tripod & holder HP fleksibel</li>
+
+                    </ul>
+
+                    <div class="product-price text-2xl font-bold text-teal-500 mb-4">Rp 135.000</div>
+
+                    <button
+                        class="add-to-cart w-full bg-teal-500 text-white py-3 rounded-xl font-medium transition-all duration-300 hover:bg-teal-600 focus:outline-none">
+                        Tambah ke Keranjang
+                    </button>
+                </div>
+                <div class="product-card bg-white p-6 rounded-2xl shadow-md" data-category="kamera"
+                    data-name="Lensa Makro & Wide Clip-On 3-in-1">
+                    <div class="product-image text-center mb-4">
+                        <img src="images/Lensa.avif" alt="Lensa Makro & Wide Clip-On 3-in-1"
+                            class="mx-auto w-40 h-40 object-cover rounded-lg">
+                    </div>
+
+                    <h3 class="product-title text-xl font-semibold mb-2">Lensa Makro & Wide Clip-On 3-in-1</h3>
+
+                    <p class="product-description text-gray-500 text-sm mb-4">
+                        Set lensa clip-on 3-in-1 untuk smartphone, meliputi lensa makro, wide-angle, dan fish-eye, mudah
+                        dipasang dan hasil foto lebih kreatif.
+                    </p>
+
+                    <div class="rating flex items-center mb-4">
+                        <span class="stars text-yellow-400">⭐⭐⭐⭐⭐</span>
+                        <span class="text-gray-500 text-xs ml-2">(4.7/5) 180 ulasan</span>
+                    </div>
+
+                    <ul class="features list-disc list-inside text-gray-600 text-sm space-y-1 mb-4">
+                        <li>Lensa makro untuk foto close-up detail tajam</li>
+                        <li>Fish-eye efek melengkung artistik</li>
+                        <li>Clip-on mudah dipasang tanpa alat tambahan</li>
+                    </ul>
+
+                    <div class="product-price text-2xl font-bold text-teal-500 mb-4">Rp 95.000</div>
+
+                    <button
+                        class="add-to-cart w-full bg-teal-500 text-white py-3 rounded-xl font-medium transition-all duration-300 hover:bg-teal-600 focus:outline-none">
+                        Tambah ke Keranjang
+                    </button>
+                </div>
+
+
+
+
+                <!-- Produk Aksesoris Lainnya -->
+                <div class="product-card bg-white p-6 rounded-2xl shadow-md" data-category="accessory"
+                    data-name="Power Bank 20000mAh">
+                    <div class="product-image text-center mb-4">
+                        <img src="images/Powerbank.jpg" alt="Case Silikon Premium"
+                            class="mx-auto w-32 h-32 object-cover rounded-lg">
+                    </div>
+                    <h3 class="product-title text-xl font-semibold mb-2">Power Bank 20000mAh</h3>
+                    <p class="product-description text-gray-500 text-sm mb-4">Power bank kapasitas besar dengan fast
+                        charging</p>
+                    <div class="rating flex items-center mb-4">
+                        <span class="stars text-yellow-400">⭐⭐⭐⭐⭐</span>
+                        <span class="text-gray-500 text-xs ml-2">(4.7/5) 389 review</span>
+                    </div>
+                    <ul class="features list-disc list-inside text-gray-600 text-sm space-y-1 mb-4">
+                        <li>20000mAh high capacity</li>
+                        <li>22.5W fast charging</li>
+                        <li>Digital LED display</li>
+                        <li>Multiple output ports</li>
+                    </ul>
+                    <div class="product-price text-2xl font-bold text-teal-500 mb-4">Rp 375.000</div>
+                    <button
+                        class="add-to-cart w-full bg-teal-500 text-white py-3 rounded-xl font-medium transition-all duration-300 hover:bg-teal-600 focus:outline-none">Tambah
+                        ke Keranjang</button>
+                </div>
+
+                <div class="product-card bg-white p-6 rounded-2xl shadow-md" data-category="accessory"
+                    data-name="Tempered Glass Screen Protector">
+                    <div class="product-image text-center mb-4">
+                        <img src="images/temperglas.jpg" alt="Case Silikon Premium"
+                            class="mx-auto w-32 h-32 object-cover rounded-lg">
+                    </div>
+                    <h3 class="product-title text-xl font-semibold mb-2">Tempered Glass Screen Protector</h3>
+                    <p class="product-description text-gray-500 text-sm mb-4">Pelindung layar kaca tempered ketebalan
+                        0.3mm</p>
+                    <div class="rating flex items-center mb-4">
+                        <span class="stars text-yellow-400">⭐⭐⭐⭐</span>
+                        <span class="text-gray-500 text-xs ml-2">(4.4/5) 512 review</span>
+                    </div>
+                    <ul class="features list-disc list-inside text-gray-600 text-sm space-y-1 mb-4">
+                        <li>9H hardness tempered glass</li>
+                        <li>Ultra-thin 0.3mm</li>
+                        <li>Bubble-free installation</li>
+                        <li>99% HD clarity</li>
+                    </ul>
+                    <div class="product-price text-2xl font-bold text-teal-500 mb-4">Rp 35.000</div>
+                    <button
+                        class="add-to-cart w-full bg-teal-500 text-white py-3 rounded-xl font-medium transition-all duration-300 hover:bg-teal-600 focus:outline-none">Tambah
+                        ke Keranjang</button>
+                </div>
+                <div class="product-card bg-white p-6 rounded-2xl shadow-md" data-category="accessory"
+                    data-name="SIM Card Tray Ejector Metal">
+                    <div class="product-image text-center mb-4">
+                        <img src="images/jarum sim kart.webp" alt="SIM Card Tray Ejector Metal"
+                            class="mx-auto w-40 h-40 object-cover rounded-lg">
+                    </div>
+
+                    <h3 class="product-title text-xl font-semibold mb-2">SIM Card Tray Ejector</h3>
+
+                    <p class="product-description text-gray-500 text-sm mb-4">
+                        Alat kecil berbahan logam untuk membuka tray SIM card dengan mudah dan aman. Cocok untuk semua
+                        tipe smartphone.
+                    </p>
+
+                    <div class="rating flex items-center mb-4">
+                        <span class="stars text-yellow-400">⭐⭐⭐⭐⭐</span>
+                        <span class="text-gray-500 text-xs ml-2">(4.9/5) 150 ulasan</span>
+                    </div>
+
+                    <ul class="features list-disc list-inside text-gray-600 text-sm space-y-1 mb-4">
+                        <li>Bahan metal kuat dan tahan lama</li>
+                        <li>Desain tipis, mudah dibawa</li>
+                        <li>Cocok untuk semua merk hp</li>
+                        <li>Penggunaan mudah dan aman</li>
+                    </ul>
+
+                    <div class="product-price text-2xl font-bold text-teal-500 mb-4">Rp 8.500</div>
+
+                    <button
+                        class="add-to-cart w-full bg-teal-500 text-white py-3 rounded-xl font-medium transition-all duration-300 hover:bg-teal-600 focus:outline-none">
+                        Tambah ke Keranjang
+                    </button>
+                </div>
+                <div class="product-card bg-white p-6 rounded-2xl shadow-md" data-category="accessory"
+                    data-name="Stylus Pen Universal">
+                    <div class="product-image text-center mb-4">
+                        <img src="images/Stylus Pen.jpg" alt="Stylus Pen Universal"
+                            class="mx-auto w-40 h-40 object-cover rounded-lg">
+                    </div>
+
+                    <h3 class="product-title text-xl font-semibold mb-2">Stylus Pen Universal</h3>
+
+                    <p class="product-description text-gray-500 text-sm mb-4">
+                        Pena stylus yang responsif dan presisi, kompatibel dengan berbagai layar sentuh smartphone dan
+                        tablet.
+                    </p>
+
+                    <div class="rating flex items-center mb-4">
+                        <span class="stars text-yellow-400">⭐⭐⭐⭐</span>
+                        <span class="text-gray-500 text-xs ml-2">(4.5/5) 95 ulasan</span>
+                    </div>
+
+                    <ul class="features list-disc list-inside text-gray-600 text-sm space-y-1 mb-4">
+                        <li>Ujung sensitif presisi tinggi</li>
+                        <li>Desain ringan dan ergonomis</li>
+                        <li>Kompatibel dengan semua layar kapasitif</li>
+                        <li>Baterai tahan lama (jika model aktif)</li>
+                    </ul>
+
+                    <div class="product-price text-2xl font-bold text-teal-500 mb-4">Rp 45.000</div>
+
+                    <button
+                        class="add-to-cart w-full bg-teal-500 text-white py-3 rounded-xl font-medium transition-all duration-300 hover:bg-teal-600 focus:outline-none">
+                        Tambah ke Keranjang
+                    </button>
+                </div>
+
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer dengan informasi toko yang diperbarui -->
+    <footer class="bg-gray-800 text-gray-300 py-8">
+        <div class="container text-center md:text-left grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- Informasi Profil Toko -->
+            <div>
+                <h4 class="text-xl font-semibold text-white mb-4">Tentang TechStore</h4>
+                <p>Klasifikasi Usaha: Aksesoris HP</p>
+                <p>TechStore menyediakan koleksi aksesoris handphone terlengkap dan berkualitas untuk melindungi dan
+                    melengkapi perangkat Anda.</p>
+            </div>
+            <!-- Kontak Toko -->
+            <div>
+                <h4 class="text-xl font-semibold text-white mb-4">Hubungi Kami</h4>
+                <p>Owner: Hans</p>
+                <p>Telp/WhatsApp: <a href="https://wa.me/628123456789"
+                        class="text-teal-400 hover:text-teal-300 transition-colors">+62 812-3456-789</a></p>
+                <p>Email: <a href="mailto:info@techstore.com"
+                        class="text-teal-400 hover:text-teal-300 transition-colors">info@techstore.com</a></p>
+            </div>
+            <!-- Alamat Toko -->
+            <div>
+                <h4 class="text-xl font-semibold text-white mb-4">Alamat Kami</h4>
+                <address>
+                    Jl. Cycas Raya Jl. Taman Setia Budi Indah Blok VV No.172 Kompleks, Asam Kumbang, Kec. Medan
+                    Selayang, Kota Medan, Sumatera Utara 20133,<br>
+                </address>
+            </div>
+            <!-- Notes -->
+            <div>
+                <h4 class="text-xl font-semibold text-white mb-4">Catatan Penting</h4>
+                <p>Semua harga tertera adalah harga satuan dan dapat berubah sewaktu-waktu. Untuk ketersediaan produk,
+                    silakan hubungi kami via WhatsApp.</p>
+            </div>
+        </div>
+        <div class="text-center mt-8 pt-4 border-t border-gray-700">
+            <p>&copy; 2024 TechStore - Katalog Aksesoris HP Terlengkap</p>
+        </div>
+    </footer>
+
+    <script>
+        // JAVASCRIPT FUNCTIONS
+
+        /**
+         * Mengatur filter produk berdasarkan kategori yang dipilih.
+         * @param {string} category - Kategori produk yang akan ditampilkan ('all', 'case', 'charger', dll.).
+         * @param {Event} event - Objek event dari klik tombol.
+         */
+        function filterProducts(category, event) {
+            const products = document.querySelectorAll('.product-card');
+            const buttons = document.querySelectorAll('.category-btn');
+
+            // Perbarui status tombol aktif
+            buttons.forEach(btn => btn.classList.remove('active', 'bg-teal-500', 'text-white'));
+            buttons.forEach(btn => btn.classList.add('bg-white', 'hover:bg-gray-200'));
+            event.target.classList.add('active', 'bg-teal-500', 'text-white', 'hover:bg-teal-600');
+            event.target.classList.remove('bg-white', 'hover:bg-gray-200');
+
+            // Tampilkan atau sembunyikan produk sesuai kategori
+            products.forEach(product => {
+                if (category === 'all' || product.dataset.category === category) {
+                    product.style.display = 'block';
+                } else {
+                    product.style.display = 'none';
+                }
+            });
+        }
+
+        /**
+         * Mencari produk berdasarkan kata kunci dari input pencarian.
+         */
+        function searchProducts() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const products = document.querySelectorAll('.product-card');
+
+            // Iterasi semua produk dan sembunyikan yang tidak cocok
+            products.forEach(product => {
+                const title = product.querySelector('.product-title').textContent.toLowerCase();
+                const description = product.querySelector('.product-description').textContent.toLowerCase();
+                const category = product.dataset.category.toLowerCase();
+
+                if (title.includes(searchTerm) || description.includes(searchTerm) || category.includes(
+                        searchTerm)) {
+                    product.style.display = 'block';
+                } else {
+                    product.style.display = 'none';
+                }
+            });
+        }
+
+        // Fungsionalitas tombol "Tambah ke Keranjang"
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', function () {
+                const productCard = this.closest('.product-card');
+                const productTitle = productCard.dataset.name;
+
+                // Feedback visual pada tombol
+                this.textContent = 'Ditambahkan!';
+                this.classList.remove('bg-teal-500', 'hover:bg-teal-600');
+                this.classList.add('bg-green-500');
+
+                setTimeout(() => {
+                    this.textContent = 'Tambah ke Keranjang';
+                    this.classList.remove('bg-green-500');
+                    this.classList.add('bg-teal-500', 'hover:bg-teal-600');
+                }, 1500);
+
+                console.log(`${productTitle} ditambahkan ke keranjang.`);
+
+                // Anda bisa menambahkan logika di sini untuk mengirim data produk
+                // ke keranjang belanja atau penyimpanan lokal.
+            });
+        });
+
+        // Memicu fungsi pencarian saat tombol "Enter" ditekan
+        document.getElementById('searchInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                searchProducts();
+            }
+        });
+
+        // Memastikan tombol kategori awal disorot saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', () => {
+            const allButton = document.querySelector('.category-btn[onclick*="all"]');
+            if (allButton) {
+                allButton.classList.add('active', 'bg-teal-500', 'text-white', 'hover:bg-teal-600');
+                allButton.classList.remove('bg-white', 'hover:bg-gray-200');
+            }
+        });
+    </script>
+</body>
+
+</html>

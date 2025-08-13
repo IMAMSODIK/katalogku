@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Can Cosmetics - Katalog</title>
+    <style>
+        /* Gaya untuk card produk */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: white;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .search-filter-section {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+        }
+
+        .search-container {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            background: rgba(255,255,255,0.9);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: rgba(255,255,255,0.9);
+            color: #667eea;
+            transform: translateY(-2px);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            padding: 0;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 220px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            border-radius: 15px 15px 0 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .product-icon {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-size: 2rem;
+            z-index: 1;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .product-info {
+            padding: 25px;
+        }
+
+        .product-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .product-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #333;
+            flex: 1;
+        }
+
+        .product-rating {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #ffa500;
+            font-size: 0.9rem;
+        }
+
+        .product-brand {
+            color: #666;
+            margin-bottom: 12px;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .product-price {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #e74c3c;
+            margin-bottom: 15px;
+        }
+
+        .product-details {
+            margin-bottom: 20px;
+        }
+
+        .product-description {
+            color: #555;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .product-specs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .spec-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 12px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+
+        .spec-label {
+            font-weight: 500;
+            color: #666;
+        }
+
+        .spec-value {
+            color: #333;
+        }
+
+        .product-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .tag {
+            padding: 4px 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .view-detail-btn {
+            flex: 1;
+            padding: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .view-detail-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .favorite-btn {
+            padding: 12px 15px;
+            background: rgba(255,255,255,0.1);
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+        }
+
+        .favorite-btn:hover,
+        .favorite-btn.active {
+            background: #ff6b6b;
+            border-color: #ff6b6b;
+            color: white;
+        }
+
+        .no-products {
+            text-align: center;
+            color: white;
+            font-size: 1.2rem;
+            padding: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Modal untuk detail produk */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 2% auto;
+            padding: 20px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: modalSlideIn 0.3s ease-out;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .close {
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            color: #aaa;
+            transition: color 0.3s;
+        }
+
+        .close:hover {
+            color: #333;
+        }
+
+        .modal-body {
+            padding: 30px;
+        }
+
+        .modal-product-image {
+            width: 100%;
+            height: 300px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            border-radius: 15px;
+            position: relative;
+        }
+
+        .modal-product-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .product-main-info h2 {
+            font-size: 1.8rem;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .product-main-info .brand {
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+        }
+
+        .product-main-info .price {
+            font-size: 1.6rem;
+            color: #e74c3c;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .detailed-specs {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+        }
+
+        .detailed-specs h3 {
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .spec-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .spec-row:last-child {
+            border-bottom: none;
+        }
+
+        .full-description {
+            grid-column: 1 / -1;
+            margin-top: 20px;
+        }
+
+        .full-description h3 {
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .full-description p {
+            line-height: 1.7;
+            color: #555;
+        }
+
+        /* Mobile Optimizations */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            .logo {
+                font-size: 2rem;
+            }
+
+            .search-container {
+                flex-direction: column;
+            }
+
+            .search-box {
+                min-width: 100%;
+            }
+
+            .filter-buttons {
+                gap: 8px;
+            }
+
+            .filter-btn {
+                padding: 8px 15px;
+                font-size: 14px;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 20px;
+            }
+
+            .product-specs {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                width: 95%;
+                margin: 5% auto;
+            }
+
+            .modal-product-info {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .modal-header {
+                padding: 15px 20px;
+            }
+
+            .modal-body {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .search-filter-section {
+                padding: 15px;
+            }
+
+            .logo {
+                font-size: 1.8rem;
+            }
+
+            .product-actions {
+                flex-direction: column;
+            }
+        }
+
+        /* Animation */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">💄 Can Cosmetics</div>
+            <div class="subtitle">Koleksi Kosmetik Terlengkap & Terpercaya</div>
+        </header>
+
+        <div class="search-filter-section">
+            <div class="search-container">
+                <input type="text" class="search-box" placeholder="Cari produk kosmetik...">
+            </div>
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-category="all">Semua</button>
+                <button class="filter-btn" data-category="skincare">Skincare</button>
+                <button class="filter-btn" data-category="makeup">Makeup</button>
+                <button class="filter-btn" data-category="fragrance">Parfum</button>
+                <button class="filter-btn" data-category="haircare">Perawatan Rambut</button>
+            </div>
+        </div>
+
+        <div class="products-grid" id="products-container">
+            <!-- Products will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Modal Detail Produk -->
+    <div id="productModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">Detail Produk</div>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <!-- Detail produk akan dimuat di sini -->
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Data produk kosmetik dengan detail lengkap
+            const products = [
+                {
+                    id: 1,
+                    name: "Serum Vitamin C Premium",
+                    brand: "GlowSkin",
+                    price: "Rp 189.000",
+                    category: "skincare",
+                    rating: 4.8,
+                    description: "Serum pencerah wajah dengan vitamin C murni untuk kulit glowing alami",
+                    fullDescription: "Serum Vitamin C Premium dari GlowSkin adalah solusi terbaik untuk mendapatkan kulit cerah dan sehat. Diformulasikan dengan Vitamin C murni 20%, serum ini membantu memudarkan noda hitam, mencerahkan kulit kusam, dan memberikan perlindungan antioksidan. Tekstur ringan dan cepat menyerap, cocok untuk semua jenis kulit. Gunakan secara rutin pagi dan malam untuk hasil maksimal.",
+                    icon: "🍊",
+                    imageUrl: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80",
+                    tags: ["Vitamin C", "Brightening", "Anti-Aging"],
+                    specifications: {
+                        "Volume": "30ml",
+                        "Jenis Kulit": "Semua Jenis",
+                        "Kandungan Utama": "Vitamin C 20%",
+                        "Tekstur": "Serum Ringan",
+                        "Waktu Pakai": "Pagi & Malam",
+                        "Origin": "Korea Selatan",
+                        "Shelf Life": "24 Bulan",
+                        "Cruelty Free": "Ya"
+                    }
+                },
+                {
+                    id: 2,
+                    name: "Foundation Long Lasting",
+                    brand: "PerfectFace",
+                    price: "Rp 245.000",
+                    category: "makeup",
+                    rating: 4.6,
+                    description: "Foundation tahan lama dengan coverage penuh untuk semua jenis kulit",
+                    fullDescription: "Foundation Long Lasting dari PerfectFace memberikan coverage sempurna yang tahan hingga 16 jam. Formula buildable yang dapat disesuaikan dari medium hingga full coverage. Dilengkapi dengan SPF 30 untuk perlindungan dari sinar UV. Tersedia dalam 20 shade yang cocok untuk tone kulit Indonesia. Tidak menyebabkan jerawat dan tahan terhadap keringat.",
+                    icon: "💋",
+                    imageUrl: "https://images.soco.id/3263e5cf-71ce-4023-8452-6607866e8a10-.jpg",
+                    tags: ["Full Coverage", "SPF 30", "Tahan Lama"],
+                    specifications: {
+                        "Volume": "35ml",
+                        "Coverage": "Medium to Full",
+                        "SPF": "SPF 30 PA++",
+                        "Jumlah Shade": "20 Warna",
+                        "Ketahanan": "16 Jam",
+                        "Finish": "Natural Matte",
+                        "Water Resistant": "Ya",
+                        "Non-Comedogenic": "Ya"
+                    }
+                },
+                {
+                    id: 3,
+                    name: "Parfum Floral Elegance",
+                    brand: "LuxScent",
+                    price: "Rp 320.000",
+                    category: "fragrance",
+                    rating: 4.9,
+                    description: "Parfum wangi floral yang elegan dan tahan lama sepanjang hari",
+                    fullDescription: "Parfum Floral Elegance menghadirkan keharuman bunga yang memikat dengan campuran rose, jasmine, dan peony. Top notes yang segar dari bergamot dan lemon, middle notes yang romantis dari bunga-bunga pilihan, dan base notes yang hangat dari musk dan sandalwood. Parfum ini memberikan kesan feminin dan elegan yang sempurna untuk segala occasion.",
+                    icon: "🌸",
+                    imageUrl: "https://down-id.img.susercontent.com/file/id-11134207-7rasa-m2anjhgx5w1g0d",
+                    tags: ["Floral", "Elegant", "Long Lasting"],
+                    specifications: {
+                        "Volume": "50ml",
+                        "Konsentrasi": "Eau de Parfum",
+                        "Top Notes": "Bergamot, Lemon",
+                        "Middle Notes": "Rose, Jasmine, Peony",
+                        "Base Notes": "Musk, Sandalwood",
+                        "Ketahanan": "8-10 Jam",
+                        "Sillage": "Medium to Strong",
+                        "Origin": "Perancis"
+                    }
+                },
+                {
+                    id: 4,
+                    name: "Hair Mask Nourishing",
+                    brand: "SilkyHair",
+                    price: "Rp 125.000",
+                    category: "haircare",
+                    rating: 4.7,
+                    description: "Masker rambut untuk nutrisi intensif dan rambut lebih berkilau",
+                    fullDescription: "Hair Mask Nourishing dengan formula diperkaya argan oil, keratin, dan vitamin E untuk memberikan nutrisi mendalam pada rambut. Cocok untuk rambut rusak, kering, dan bercabang. Tekstur creamy yang mudah diaplikasikan dan dibilas. Gunakan 2-3 kali seminggu untuk rambut yang lebih lembut, berkilau, dan mudah diatur.",
+                    icon: "✨",
+                    imageUrl: "https://amalicosmetic.com/wp-content/uploads/2024/04/NOURISHING-HAIR-MASK.png",
+                    tags: ["Nourishing", "Keratin", "Argan Oil"],
+                    specifications: {
+                        "Volume": "250ml",
+                        "Jenis Rambut": "Rusak & Kering",
+                        "Kandungan Utama": "Argan Oil, Keratin",
+                        "Waktu Pakai": "2-3x/Minggu",
+                        "Aplikasi": "15-20 Menit",
+                        "Aroma": "Vanilla Mint",
+                        "Paraben Free": "Ya",
+                        "Sulfate Free": "Ya"
+                    }
+                },
+                {
+                    id: 5,
+                    name: "Moisturizer Anti-Aging",
+                    brand: "YouthGlow",
+                    price: "Rp 215.000",
+                    category: "skincare",
+                    rating: 4.5,
+                    description: "Pelembab anti-aging dengan retinol untuk kulit awet muda",
+                    fullDescription: "Moisturizer Anti-Aging dengan teknologi advanced retinol dan hyaluronic acid untuk melawan tanda-tanda penuaan. Formula night cream yang bekerja optimal saat tidur untuk regenerasi sel kulit. Membantu mengurangi garis halus, kerutan, dan meningkatkan elastisitas kulit. Diperkaya dengan peptides dan antioksidan untuk hasil yang maksimal.",
+                    imageUrl: "https://www.fresh.com/dw/image/v2/BDJQ_PRD/on/demandware.static/-/Sites-fresh_master_catalog/default/dw1d112ad6/product_images/H00006521_stylized.jpg?sw=1350&sh=900&bgcolor=F7F7F8&sfrm=jpg",
+                    icon: "🧴",
+                    tags: ["Anti-Aging", "Retinol", "Night Cream"],
+                    specifications: {
+                        "Volume": "50ml",
+                        "Kandungan Utama": "Retinol 0.5%",
+                        "Kandungan Tambahan": "Hyaluronic Acid",
+                        "Jenis": "Night Cream",
+                        "Usia": "25+ Tahun",
+                        "Tekstur": "Rich Cream",
+                        "Kemasan": "Airless Pump",
+                        "Dermatologically Tested": "Ya"
+                    }
+                },
+                {
+                    id: 6,
+                    name: "Lipstick Matte Collection",
+                    brand: "BoldLips",
+                    price: "Rp 85.000",
+                    category: "makeup",
+                    rating: 4.4,
+                    description: "Lipstik matte dengan 12 pilihan warna trendy yang tahan lama",
+                    fullDescription: "Koleksi Lipstick Matte dengan formula yang tidak membuat bibir kering. Tersedia dalam 12 shade pilihan mulai dari nude, pink, coral, hingga bold red. Tekstur creamy matte yang nyaman digunakan seharian. Mengandung vitamin E dan jojoba oil untuk menjaga kelembaban bibir. Aplikator precision tip untuk hasil yang presisi.",
+                    icon: "💄",
+                    imageUrl: "https://id.ozcosmetics.com/prodimgs/202105/263952.jpg",
+                    tags: ["Matte Finish", "12 Shades", "Vitamin E"],
+                    specifications: {
+                        "Berat": "3.5g",
+                        "Finish": "Matte",
+                        "Jumlah Shade": "12 Warna",
+                        "Kandungan": "Vitamin E, Jojoba Oil",
+                        "Ketahanan": "6-8 Jam",
+                        "Aplikator": "Precision Tip",
+                        "Vegan": "Ya",
+                        "Cruelty Free": "Ya"
+                    }
+                },
+                {
+                    id: 7,
+                    name: "Parfum Fresh Citrus",
+                    brand: "CitrusBloom",
+                    price: "Rp 275.000",
+                    category: "fragrance",
+                    rating: 4.6,
+                    description: "Parfum segar dengan aroma citrus yang menyegarkan sepanjang hari",
+                    fullDescription: "Parfum Fresh Citrus memberikan sensasi kesegaran sepanjang hari dengan perpaduan citrus yang energizing. Kombinasi sempurna dari orange, grapefruit, dan lime di top notes, dipadukan dengan green tea dan mint di heart notes, serta white musk di base notes. Sempurna untuk aktivitas sehari-hari dan cuaca tropis.",
+                    icon: "🍊",
+                    imageUrl: "https://www.fresh.com/dw/image/v2/BDJQ_PRD/on/demandware.static/-/Sites-fresh_master_catalog/default/dw07894411/product_images/H00006866_H00006867_hover.jpg?sw=400&sh=400&bgcolor=F7F7F8&sfrm=jpg",
+                    tags: ["Citrus", "Fresh", "Energizing"],
+                    specifications: {
+                        "Volume": "75ml",
+                        "Konsentrasi": "Eau de Toilette",
+                        "Top Notes": "Orange, Grapefruit, Lime",
+                        "Heart Notes": "Green Tea, Mint",
+                        "Base Notes": "White Musk",
+                        "Ketahanan": "6-8 Jam",
+                        "Kategori": "Unisex",
+                        "Season": "Spring/Summer"
+                    }
+                },
+                {
+                    id: 8,
+                    name: "Shampoo Organic Herbal",
+                    brand: "NatureHair",
+                    price: "Rp 95.000",
+                    category: "haircare",
+                    rating: 4.8,
+                    description: "Shampo organik dengan ekstrak herbal untuk rambut sehat alami",
+                    fullDescription: "Shampoo Organic Herbal menggunakan bahan-bahan alami pilihan seperti ekstrak ginseng, green tea, dan aloe vera. Formula bebas sulfate dan paraben yang aman untuk penggunaan sehari-hari. Membersihkan rambut dan kulit kepala secara mendalam tanpa menghilangkan minyak alami. Cocok untuk semua jenis rambut termasuk rambut sensitif dan berketombe.",
+                    icon: "🌿",
+                    imageUrl: "https://image.made-in-china.com/202f0j00ryikZTfBLKcO/Herbal-Essence-Natural-Oil-Control-Organic-Coconut-Orange-Shampoo.webp",
+                    tags: ["Organic", "Herbal", "Sulfate Free"],
+                    specifications: {
+                        "Volume": "300ml",
+                        "Jenis": "Daily Shampoo",
+                        "Kandungan": "Ginseng, Green Tea, Aloe Vera",
+                        "Formula": "Sulfate & Paraben Free",
+                        "pH Level": "5.5",
+                        "Cocok Untuk": "Semua Jenis Rambut",
+                        "Sertifikasi": "Organic Certified",
+                        "Kemasan": "Eco-Friendly"
+                    }
+                },
+                {
+                    id: 9,
+                    name: "Hydrating Toner",
+                    brand: "AquaPure",
+                    price: "Rp 145.000",
+                    category: "skincare",
+                    rating: 4.7,
+                    description: "Toner dengan kandungan hyaluronic acid untuk hidrasi optimal",
+                    fullDescription: "Hydrating Toner dari AquaPure mengandung 5 jenis hyaluronic acid dan centella asiatica untuk hidrasi mendalam. Formula alcohol-free yang menenangkan dan menyegarkan kulit. Membantu menyeimbangkan pH kulit dan mempersiapkan kulit untuk penyerapan produk skincare berikutnya.",
+                    icon: "💧",
+                    imageUrl: "https://www.beautyhaul.com/assets/uploads/products/thumbs/800x800/SKG-TON-00039.001_2.png",
+                    tags: ["Hydrating", "Alcohol-Free", "pH Balance"],
+                    specifications: {
+                        "Volume": "200ml",
+                        "Kandungan Utama": "5x Hyaluronic Acid",
+                        "pH Level": "5.5",
+                        "Tekstur": "Watery",
+                        "Free From": "Alcohol, Fragrance",
+                        "Cocok Untuk": "Semua Jenis Kulit",
+                        "Origin": "Korea",
+                        "Shelf Life": "36 Bulan"
+                    }
+                },
+                {
+                    id: 10,
+                    name: "Eye Shadow Palette",
+                    brand: "ColorPop",
+                    price: "Rp 299.000",
+                    category: "makeup",
+                    rating: 4.9,
+                    description: "Palet eyeshadow dengan 12 warna matte dan shimmer",
+                    fullDescription: "Eye Shadow Palette dari ColorPop hadir dengan 12 warna trendy yang terdiri dari finish matte dan shimmer. Pigmentasi tinggi dan mudah di-blend, formula tahan lama hingga 12 jam. Dilengkapi cermin besar dan aplikator dual-ended untuk aplikasi sempurna.",
+                    icon: "👁",
+                    imageUrl: "https://en-kw.rituals.com/media/mf_webp/png/media/catalog/product/cache/5abc674014ac53f3ae9c14d6b352b9ee/1/1/1103856_1.webp",
+                    tags: ["Eyeshadow", "High Pigment", "12 Shades"],
+                    specifications: {
+                        "Berat": "15g",
+                        "Jumlah Warna": "12 Shades",
+                        "Finish": "6 Matte, 6 Shimmer",
+                        "Ketahanan": "12 Jam",
+                        "Aplikator": "Dual-ended Brush",
+                        "Cermin": "Ya",
+                        "Vegan": "Ya",
+                        "Travel Friendly": "Ya"
+                    }
+                },
+                {
+                    id: 11,
+                    name: "Hair Serum Silk",
+                    brand: "LuxHair",
+                    price: "Rp 165.000",
+                    category: "haircare",
+                    rating: 4.8,
+                    description: "Serum rambut dengan protein sutra untuk rambut halus berkilau",
+                    fullDescription: "Hair Serum Silk mengandung protein sutra dan argan oil untuk merawat rambut kusut dan kering. Melindungi dari kerusakan akibat styling dan panas. Memberikan kilau alami tanpa membuat rambut berminyak. Aroma luxury yang tahan lama.",
+                    icon: "💁‍♀",
+                    imageUrl: "https://www.s94beautyhub.com/cdn/shop/files/HairSilkSerumAnti-frizz_Shining_Smoothening100Ml.jpg?v=1731568274&width=1000",
+                    tags: ["Silk Protein", "Heat Protection", "Anti-Frizz"],
+                    specifications: {
+                        "Volume": "100ml",
+                        "Kandungan": "Silk Protein, Argan Oil",
+                        "Heat Protection": "Hingga 230°C",
+                        "Jenis Rambut": "Semua Jenis",
+                        "Tekstur": "Lightweight Serum",
+                        "Aroma": "White Musk & Jasmine",
+                        "Paraben Free": "Ya",
+                        "UV Protection": "Ya"
+                    }
+                },
+                {
+                    id: 12,
+                    name: "Body Mist Summer",
+                    brand: "FreshScent",
+                    price: "Rp 129.000",
+                    category: "fragrance",
+                    rating: 4.5,
+                    description: "Body mist dengan aroma segar buah dan bunga musim panas",
+                    fullDescription: "Body Mist Summer menghadirkan kesegaran musim panas dalam botol. Perpaduan aroma mangga, coconut, dan bunga frangipani menciptakan sensasi tropical yang menyegarkan. Formula dengan aloe vera untuk menutrisi kulit. Sempurna untuk pemakaian sehari-hari.",
+                    icon: "🌺",
+                    imageUrl: "https://www.maisonmaissa.com/cdn/shop/files/summernights.png?v=1741361321&width=1946",
+                    tags: ["Fresh", "Tropical", "Summer"],
+                    specifications: {
+                        "Volume": "250ml",
+                        "Konsentrasi": "Body Mist",
+                        "Top Notes": "Mangga, Coconut",
+                        "Heart Notes": "Frangipani, Jasmine",
+                        "Base Notes": "Vanilla, Musk",
+                        "Ketahanan": "4-6 Jam",
+                        "Moisturizing": "Ya",
+                        "Travel Size": "Ya"
+                    }
+                }
+            ];
+
+            let filteredProducts = products;
+
+            // Fungsi untuk render produk
+            function renderProducts(productsToRender) {
+                const container = $('#products-container');
+                container.empty();
+
+                if (productsToRender.length === 0) {
+                    container.html('<div class="no-products">Tidak ada produk yang ditemukan</div>');
+                    return;
+                }
+
+                productsToRender.forEach(product => {
+                    const stars = '⭐'.repeat(Math.floor(product.rating));
+                    const tagsHtml = product.tags.map(tag => `<span class="tag">${tag}</span>`).join('');
+                    
+                    const productHtml = `
+                        <div class="product-card fade-in" data-category="${product.category}" data-id="${product.id}">
+                            <div class="product-image" style="background-image: url('${product.imageUrl}');">
+                                <div class="product-icon">${product.icon}</div>
+                            </div>
+                            <div class="product-info">
+                                <div class="product-header">
+                                    <div class="product-name">${product.name}</div>
+                                    <div class="product-rating">
+                                        ${stars} ${product.rating}
+                                    </div>
+                                </div>
+                                <div class="product-brand">${product.brand}</div>
+                                <div class="product-price">${product.price}</div>
+                                <div class="product-details">
+                                    <div class="product-description">${product.description}</div>
+                                    <div class="product-specs">
+                                        <div class="spec-item">
+                                            <span class="spec-label">Volume:</span>
+                                            <span class="spec-value">${product.specifications.Volume || product.specifications.Berat || 'N/A'}</span>
+                                        </div>
+                                        <div class="spec-item">
+                                            <span class="spec-label">Rating:</span>
+                                            <span class="spec-value">${product.rating}/5</span>
+                                        </div>
+                                    </div>
+                                    <div class="product-tags">
+                                        ${tagsHtml}
+                                    </div>
+                                </div>
+                                <div class="product-actions">
+                                    <button class="view-detail-btn" data-id="${product.id}">
+                                        Lihat Detail
+                                    </button>
+                                    <button class="favorite-btn" data-id="${product.id}">
+                                        ♡
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    container.append(productHtml);
+                });
+            }
+
+            // Fungsi untuk menampilkan detail produk di modal
+            function showProductDetail(productId) {
+                const product = products.find(p => p.id === productId);
+                if (!product) return;
+
+                const stars = '⭐'.repeat(Math.floor(product.rating));
+                const tagsHtml = product.tags.map(tag => `<span class="tag">${tag}</span>`).join('');
+                
+                let specsHtml = '';
+                for (const [key, value] of Object.entries(product.specifications)) {
+                    specsHtml += `
+                        <div class="spec-row">
+                            <span class="spec-label">${key}:</span>
+                            <span class="spec-value">${value}</span>
+                        </div>
+                    `;
+                }
+
+                const modalHtml = `
+                    <div class="modal-product-image" style="background-image: url('${product.imageUrl}');">
+                        <div class="product-icon">${product.icon}</div>
+                    </div>
+                    <div class="modal-product-info">
+                        <div class="product-main-info">
+                            <h2>${product.name}</h2>
+                            <div class="brand">${product.brand}</div>
+                            <div class="price">${product.price}</div>
+                            <div class="product-rating" style="margin-bottom: 15px;">
+                                ${stars} ${product.rating} dari 5
+                            </div>
+                            <div class="product-tags">
+                                ${tagsHtml}
+                            </div>
+                        </div>
+                        <div class="detailed-specs">
+                            <h3>Spesifikasi Produk</h3>
+                            ${specsHtml}
+                        </div>
+                        <div class="full-description">
+                            <h3>Deskripsi Lengkap</h3>
+                            <p>${product.fullDescription}</p>
+                        </div>
+                    </div>
+                `;
+
+                $('#modal-body').html(modalHtml);
+                $('#productModal').show();
+            }
+
+            // Fungsi filter berdasarkan kategori
+            function filterByCategory(category) {
+                if (category === 'all') {
+                    filteredProducts = products;
+                } else {
+                    filteredProducts = products.filter(product => product.category === category);
+                }
+                renderProducts(filteredProducts);
+            }
+
+            // Fungsi pencarian
+            function searchProducts(searchTerm) {
+                const searchResults = filteredProducts.filter(product => 
+                    product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    product.brand.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    product.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    product.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()))
+                );
+                renderProducts(searchResults);
+            }
+
+            // Event listener untuk filter kategori
+            $('.filter-btn').click(function() {
+                $('.filter-btn').removeClass('active');
+                $(this).addClass('active');
+                
+                const category = $(this).data('category');
+                filterByCategory(category);
+            });
+
+            // Event listener untuk pencarian
+            $('.search-box').on('input', function() {
+                const searchTerm = $(this).val();
+                searchProducts(searchTerm);
+            });
+
+            // Event listener untuk tombol lihat detail
+            $(document).on('click', '.view-detail-btn', function() {
+                const productId = parseInt($(this).data('id'));
+                showProductDetail(productId);
+            });
+
+            // Event listener untuk tombol favorite
+            $(document).on('click', '.favorite-btn', function() {
+                $(this).toggleClass('active');
+                if ($(this).hasClass('active')) {
+                    $(this).html('❤️');
+                } else {
+                    $(this).html('♡');
+                }
+                
+                // Haptic feedback untuk mobile (jika didukung)
+                if ('vibrate' in navigator) {
+                    navigator.vibrate(50);
+                }
+            });
+
+            // Event listener untuk menutup modal
+            $('.close, .modal').click(function(e) {
+                if (e.target === this) {
+                    $('#productModal').hide();
+                }
+            });
+
+            // Render produk pertama kali
+            renderProducts(products);
+
+            // Smooth scrolling untuk mobile
+            $('html').css('scroll-behavior', 'smooth');
+
+            // Optimasi touch events untuk mobile
+            $('.product-card, .filter-btn, .view-detail-btn, .favorite-btn').on('touchstart', function() {
+                $(this).addClass('touching');
+            }).on('touchend', function() {
+                $(this).removeClass('touching');
+            });
+
+            // Lazy loading animation
+            function animateOnScroll() {
+                $('.product-card').each(function() {
+                    const elementTop = $(this).offset().top;
+                    const viewportTop = $(window).scrollTop();
+                    const viewportBottom = viewportTop + $(window).height();
+
+                    if (elementTop < viewportBottom && elementTop > viewportTop - 100) {
+                        $(this).addClass('fade-in');
+                    }
+                });
+            }
+
+            $(window).scroll(animateOnScroll);
+            animateOnScroll(); // Initial check
+
+            // Keyboard navigation untuk modal
+            $(document).keydown(function(e) {
+                if (e.key === "Escape") {
+                    $('#productModal').hide();
+                }
+            });
+
+            // Prevent modal close when clicking modal content
+            $('.modal-content').click(function(e) {
+                e.stopPropagation();
+            });
+        });
+    </script>
+</body>
+</html>

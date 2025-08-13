@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>E-Katalog Toko Bangunan</title>
+</head>
+<body>
+    <div class="header-section">
+        <h1 class="page-title">E-Katalog Toko Bangunan</h1>
+        
+        <div class="search-filter-container">
+            <select class="category-select" id="categorySelect" onchange="filterProducts(this.value)">
+                <option value="all">Semua Kategori</option>
+                <option value="semen">Semen & Material</option>
+                <option value="besi">Besi & Baja</option>
+                <option value="genteng">Genteng</option>
+                <option value="cat">Cat</option>
+                <option value="keramik">Keramik</option>
+                <option value="listrik">Listrik</option>
+                <option value="sanitari">Sanitari</option>
+                <option value="tools">Alat</option>
+            </select>
+            <input type="text" class="search-box" placeholder="Cari produk..." id="searchBox">
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="container">
+            <div class="products-grid" id="productsGrid">
+                <!-- Products will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Product Detail -->
+    <div id="productModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <div class="modal-title" id="modalTitle"></div>
+                <div class="modal-price" id="modalPrice"></div>
+            </div>
+            <div class="modal-body">
+                <img id="modalImage" class="modal-image" alt="">
+                <div class="modal-category" id="modalCategory"></div>
+                <div class="modal-description" id="modalDescription"></div>
+            </div>
+            <div class="modal-actions">
+                <button class="modal-btn modal-whatsapp" onclick="chatWhatsAppFromModal()">
+                    <svg class="whatsapp-icon" viewBox="0 0 24 24">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
+                    </svg>
+                    Chat WhatsApp
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const products = [
+            {
+                name: "Semen 50kg",
+                price: "Rp 65.000/sak",
+                description: "Semen berkualitas tinggi untuk konstruksi berat. Cocok untuk pondasi, kolom, dan balok. Produk ini memiliki kekuatan tekan tinggi dan daya rekat yang sangat baik untuk berbagai jenis konstruksi bangunan.",
+                image: "https://merekbagus.com/wp-content/uploads/2022/01/merk-semen-terbaik.jpg",
+                category: "semen",
+                categoryName: "Semen & Material",
+                badge: "",
+                badgeClass: "badge-bestseller",
+                whatsapp: "6281264651019"
+            },
+            {
+                name: "Pasir",
+                price: "Rp 350.000/m³",
+                description: "Pasir berkualitas untuk adukan beton dan plesteran dinding. Pasir ini telah melalui proses penyaringan yang baik sehingga bebas dari kotoran dan memiliki gradasi yang sesuai standar konstruksi.",
+                image: "https://img.mbizmarket.co.id/products/thumbs/800x800/2022/07/28/6f28a81578f7d94da2fdfd3f8460b7ea.jpg",
+                category: "semen",
+                categoryName: "Semen & Material",
+                badge: "",
+                badgeClass: "",
+                whatsapp: "6281264651019"
+            },
+            {
+                name: "Besi Beton",
+                price: "Rp 15.500/batang",
+                description: "Besi beton SNI untuk struktur bangunan dengan panjang 12 meter. Memiliki kekuatan tarik tinggi dan tahan korosi. Cocok untuk konstruksi pondasi, kolom, dan balok bangunan bertingkat.",
+                image: "https://nimsteel.co.id/wp-content/uploads/2023/10/Besi-Beton-Polos-Fix-New-1.jpg",
+                category: "besi",
+                categoryName: "Besi & Baja",
+                badge: "",
+                badgeClass: "badge-promo",
+                whatsapp: "6281264651019"
+            },
+            {
+                name: "Besi Hollow 4x4",
+                price: "Rp 95.000/batang",
+                description: "Besi hollow galvanis anti karat untuk rangka dan konstruksi ringan. Memiliki ketahanan tinggi terhadap cuaca dan korosi. Sangat cocok untuk pembuatan pagar, kanopi, dan rangka bangunan ringan.",
+                image: "https://images.tokopedia.net/img/cache/500-square/VqbcmM/2023/3/5/c54728f1-b46c-4742-9731-44be3e18b8dc.jpg",
+                category: "besi",
+                categoryName: "Besi & Baja",
+                badge: "",
+                badgeClass: "",
+                whatsapp: "6281264651019"
+            },
+            {
+                name: "Genteng Keramik Glazur",
+                price: "Rp 8.500/biji",
+                description: "Genteng keramik glazur tahan lama dengan berbagai pilihan warna. Memiliki lapisan glazur yang mengkilap dan tahan terhadap cuaca ekstrem. Tidak mudah berlumut dan memiliki daya serap air yang rendah.",
+                image: "https://events.rumah123.com/news-content/img/2021/11/14220434/genteng-keramik-2.png",
+                category: "genteng",
+                categoryName: "Genteng",
+                badge: "",
+                badgeClass: "badge-new",
+                whatsapp: "6281264651019"
+            },
+            {
+                name: "Genteng Metal Pasir",
+                price: "Rp 65.000/lembar",
+                description: "Genteng metal ringan anti bocor dengan coating pasir alami. Memiliki bobot yang ringan namun kuat dan tahan lama. Dilengkapi dengan sistem pemasangan yang mudah dan rapat air.",
+                image: "https://banguntujuhcahaya.com/wp-content/uploads/2019/05/Genteng-Berpasir-2-724x1024.jpg",
+                category: "genteng",
+                categoryName: "Genteng",
+                badge: "",
+                badgeClass: "",
+                whatsapp: "6281264651019"
+            },
+            {
+                name: "Cat Tembok Dulux 25kg",
+                price: "Rp 450.000/kaleng",
+                description: "Cat tembok berkualitas premium dengan daya tutup tinggi dan tahan lama. Formula khusus anti jamur dan bakteri. Hasil akhir halus dan merata dengan berbagai pilihan warna yang indah dan tahan pudar.",
+                image: "https://down-id.img.susercontent.com/file/id-11134207-7r98o-ll1vj147o73jf9",
+                category: "cat",
+                categoryName: "Cat",
+                badge: "",
+                badgeClass: "badge-bestseller",
+                whatsapp: "6281264651019"
+            },
+            {
+                name: "Cat Kayu Biovarnish 1L",
+                price: "Rp 85.000/kaleng",
+                description: "Cat kayu water based ramah lingkungan dengan hasil natural finishing. Tidak mengandung bahan kimia berbahaya, cepat kering, dan tidak berbau menyengat. Memberikan perlindungan optimal pada kayu.",
+                image: "https://down-id.img.susercontent.com/file/7bea1a91d6f51345027284916dedd719",
+                category: "cat",
+                categoryName: "Cat",
+                badge: "",
+                badgeClass: "",
+                whatsapp: "6281264651019"
+            },
+            {
+                name: "Keramik Lantai",
+                price: "Rp 45.000/m²",
+                description: "Keramik anti slip untuk lantai dengan motif modern dan elegan. Permukaan bertekstur halus namun tidak licin, cocok untuk area basah maupun kering. Mudah dibersihkan dan tahan terhadap noda.",
+                image: "https://1.bp.blogspot.com/-G226t5XX-G8/VGbdJwffAxI/AAAAAAAAAZk/8bWEIS9IJ8s/s1600/Keramik%2Blantai%2Bkamar%2Bmandi%2Bikatan1.JPG",
+                category: "keramik",
+                categoryName: "Keramik",
+                badge: "",
+                badgeClass: "badge-promo",
+                whatsapp: "6281264651019"
+            },
+            {
+                name: "Granit Tile 60x60",
+                price: "Rp 125.000/m²",
+                description: "Granit premium untuk interior dengan kilap alami yang tahan lama. Memiliki ketahanan tinggi terhadap goresan dan noda. Cocok untuk ruang tamu, kamar tidur, dan area komersial dengan tampilan mewah.",
+                image: "https://images.tokopedia.net/img/cache/700/VqbcmM/2021/9/13/9afe3a87-b26a-4ca0-ad87-465a6a960b94.jpg",
+                category: "keramik",
+                categoryName: "Keramik",
+                badge: "",
+                badgeClass: "",
+                whatsapp: "6281264651019"
+            },
+            {
+                name: "Kabel NYM 3x2.5",
+                price: "Rp 15.000/meter",
+                description: "Kabel instalasi rumah standar SNI untuk instalasi listrik rumah tangga. Isolasi ganda untuk keamanan maksimal, tahan terhadap panas dan kelembaban. Cocok untuk instalasi listrik dalam ruangan.",
+                image: "https://gratisongkir-storage.com/products/900x900/oKFasHAcSL5n.jpg",
+                category: "listrik",
+                categoryName: "Listrik",
+                badge: "",
+                badgeClass: "",
+                whatsapp: "6281264651019"
+            },
+            {
+                name: "Saklar Ganda Broco",
+                price: "Rp 18.000/biji",
+                description: "Saklar ganda berkualitas dengan desain modern dan tahan lama. Menggunakan material berkualitas tinggi dengan kontak listrik yang stabil. Desain minimalis cocok untuk interior modern.",
+                image: "https://images.tokopedia.net/img/cache/500-square/VqbcmM/2021/7/26/87e4a8e4-2cbd-47ae-a576-51bb6ea97925.jpg",
+                category: "listrik",
+                categoryName: "Listrik",
+                badge: "",
+                badgeClass: "badge-new",
+                whatsapp: "6281264651019"
+            },
+            {
+                name: "Kloset Duduk TOTO",
+                price: "Rp 850.000/set",
+                description: "Kloset duduk berkualitas premium dengan teknologi dual flush untuk penghematan air. Desain ergonomis dan higienis dengan permukaan yang mudah dibersihkan. Dilengkapi dengan tutup soft closing.",
+                image: "https://bjhomeofficial.com/files/import/173342_3.jpg",
+                category: "sanitari",
+                categoryName: "Sanitari",
+                badge: "",
+                badgeClass: "badge-bestseller",
+                whatsapp: "6281264651019"
+            },
+            {
+                name: "Wastafel Keramik Modern",
+                price: "Rp 450.000/biji",
+                description: "Wastafel keramik dengan desain modern untuk kamar mandi minimalis. Dibuat dari keramik berkualitas tinggi dengan finishing yang halus dan mengkilap. Mudah dipasang dan dirawat.",
+                image: "https://media.s-bol.com/gqnqm7nMElq6/pYKg4j2/550x550.jpg",
+                category: "sanitari",
+                categoryName: "Sanitari",
+                badge: "",
+                badgeClass: "",
+                whatsapp: "6281264651019"
+            },
+            {
+                name: "Mesin Bor Impact",
+                price: "Rp 650.000/unit",
+                description: "Mesin bor impact untuk tembok dan beton dengan daya tahan tinggi. Dilengkapi dengan motor yang powerful dan sistem pendingin yang baik. Cocok untuk pekerjaan berat dan penggunaan profesional.",
+                image: "https://images.unsplash.com/photo-1572981779307-38b8cabb2407?w=400&h=300&fit=crop",
+                category: "tools",
+                categoryName: "Alat",
+                badge: "",
+                badgeClass: "badge-promo",
+                whatsapp: "6281264651019"
+            },
+            {
+                name: "Gergaji Kayu 24 inch",
+                price: "Rp 95.000/biji",
+                description: "Gergaji kayu tajam 24 inch untuk memotong kayu dengan presisi tinggi. Mata gergaji dibuat dari baja berkualitas tinggi dengan ketajaman yang tahan lama. Handle ergonomis untuk kenyamanan penggunaan.",
+                image: "https://id-test-11.slatic.net/p/63a56af6bc8e7a38f5263f7f74defba0.jpg",
+                category: "tools",
+                categoryName: "Alat",
+                badge: "",
+                badgeClass: "",
+                whatsapp: "6281264651019"
+            },
+            {
+                name: "Palu",
+                price: "Rp 26.900/biji",
+                description: "Palu berkualitas ideal untuk pekerjaan pertukangan umum seperti memaku dan mencabut paku. Handle kayu yang kuat dan nyaman di genggam. Kepala palu dari baja tempa yang tahan lama.",
+                image: "https://images.tokopedia.net/img/cache/500-square/VqbcmM/2020/10/8/1529d906-4eb1-4baa-9624-4d97d414eabe.jpg",
+                category: "tools",
+                categoryName: "Alat",
+                badge: "",
+                badgeClass: "",
+                whatsapp: "6281264651019"
+            },
+            {
+                name: "Paku",
+                price: "Rp 28.000/kg",
+                description: "Paku berkualitas digunakan dalam pekerjaan pertukangan rumah seperti pemasangan plafon, rangka dinding, dan pembuatan furniture. Dibuat dari baja berkualitas tinggi dengan daya cengkeram yang kuat.",
+                image: "https://filebroker-cdn.lazada.co.id/kf/S3dd2c7683a0c4b179a1bb0de8c550112T.jpg",
+                category: "tools",
+                categoryName: "Alat",
+                badge: "",
+                badgeClass: "",
+                whatsapp: "6281264651019"
+            }
+        ];
+
+        let filteredProducts = [...products];
+        let currentProduct = null;
+
+        function renderProducts(productsToRender) {
+            const grid = document.getElementById('productsGrid');
+            grid.innerHTML = '';
+
+            productsToRender.forEach((product, index) => {
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card';
+                productCard.innerHTML = `
+                    <img src="${product.image}" alt="${product.name}" class="product-image" 
+                         onerror="this.style.display='none';">
+                    ${product.badge ? `<div class="product-badge ${product.badgeClass}">${product.badge}</div>` : ''}
+                    <div class="product-content">
+                        <h3 class="product-name">${product.name}</h3>
+                        <div class="product-price">${product.price}</div>
+                        <p class="product-description">${product.description.substring(0, 80)}...</p>
+                        <div class="button-group">
+                            <button class="detail-btn" onclick="showDetail(${index})">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                                </svg>
+                                Lihat Detail
+                            </button>
+                            <button class="chat-btn" onclick="chatWhatsApp('${product.whatsapp}', '${product.name}')">
+                                <svg class="whatsapp-icon" viewBox="0 0 24 24">
+                                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
+                                </svg>
+                                Chat WA
+                            </button>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(productCard);
+            });
+        }
+
+        function filterProducts(category) {
+            if (category === 'all') {
+                filteredProducts = [...products];
+            } else {
+                filteredProducts = products.filter(product => product.category === category);
+            }
+            
+            renderProducts(filteredProducts);
+        }
+
+        function showDetail(index) {
+            const product = filteredProducts[index];
+            currentProduct = product;
+            
+            document.getElementById('modalTitle').textContent = product.name;
+            document.getElementById('modalPrice').textContent = product.price;
+            document.getElementById('modalImage').src = product.image;
+            document.getElementById('modalImage').alt = product.name;
+            document.getElementById('modalCategory').textContent = product.categoryName;
+            document.getElementById('modalDescription').textContent = product.description;
+            
+            document.getElementById('productModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('productModal').style.display = 'none';
+        }
+
+        function chatWhatsApp(phone, productName) {
+            const message = `Halo, saya tertarik dengan produk ${productName}. Mohon info lebih lanjut.`;
+            const whatsappUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+        }
+
+        function chatWhatsAppFromModal() {
+            if (currentProduct) {
+                chatWhatsApp(currentProduct.whatsapp, currentProduct.name);
+                closeModal();
+            }
+        }
+
+        // Search functionality
+        document.getElementById('searchBox').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const searchResults = filteredProducts.filter(product => 
+                product.name.toLowerCase().includes(searchTerm) ||
+                product.description.toLowerCase().includes(searchTerm)
+            );
+            renderProducts(searchResults);
+        });
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('productModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // Initial render
+        renderProducts(products);
+    </script>
+</body>
+</html>

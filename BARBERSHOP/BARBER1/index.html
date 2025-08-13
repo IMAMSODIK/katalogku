@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barber - Barbershop Premium</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-cut"></i>
+                <span>Barber</span>
+            </div>
+
+            <!-- Desktop Menu -->
+            <div class="nav-menu">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#services" class="nav-link">Services</a>
+                <a href="#gallery" class="nav-link">Gallery</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#capster" class="nav-link">Capster</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <div class="nav-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu">
+            <a href="#home" class="mobile-link">Home</a>
+            <a href="#services" class="mobile-link">Services</a>
+            <a href="#gallery" class="mobile-link">Gallery</a>
+            <a href="#about" class="mobile-link">About</a>
+            <a href="#capster" class="mobile-link">Capster</a>
+            <a href="#contact" class="mobile-link">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <div class="hero-icon">
+                <i class="fas fa-cut"></i>
+            </div>
+            <h1 class="hero-title">Barber</h1>
+            <p class="hero-subtitle">
+                Pilihan Terbaik Untuk Ubah Penampilan Anda<br>
+            </p>
+            <p class="hero-subtitle">
+                Barbershop Premium dengan Layanan Profesional<br>
+                <span class="highlight">Styling Modern • Kualitas Terbaik • Pengalaman Tak Terlupakan</span>
+            </p>
+            <div class="hero-buttons">
+                <a href="#gallery" class="btn btn-secondary">Lihat Portfolio</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fas fa-award"></i>
+                    </div>
+                    <div class="stat-value">5+</div>
+                    <div class="stat-label">Tahun Pengalaman</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-value">1000+</div>
+                    <div class="stat-label">Customer Puas</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="stat-value">4.9</div>
+                    <div class="stat-label">Rating Google</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fas fa-cut"></i>
+                    </div>
+                    <div class="stat-value">50+</div>
+                    <div class="stat-label">Style Tersedia</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-sparkles"></i>
+                </div>
+                <h2 class="section-title">Our Service</h2>
+                <p class="section-subtitle">
+                    Dapatkan pelayanan terbaik dengan standar internasional dan teknik modern
+                </p>
+            </div>
+
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="img/klasik.png" alt="Classic Cut" />
+                        <div class="service-overlay">
+                            <div class="service-price">Rp 75,000</div>
+                            <div class="service-duration">
+                                <i class="fas fa-clock"></i>
+                                <span>45 min</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="service-content">
+                        <h3 class="service-name">Classic Cut</h3>
+                        <button class="service-btn" onclick="toggleDetail(this)">Detail Layanan</button>
+                        <div class="service-detail" style="display:none;">
+                            Classic Cut adalah potongan rambut klasik yang cocok untuk semua usia, menggunakan teknik
+                            barber tradisional yang presisi dan rapi. Cocok untuk Anda yang ingin tampil elegan dan
+                            maskulin.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="img/moderncut.jpg" alt="Modern Fade" />
+                        <div class="service-overlay">
+                            <div class="service-price">Rp 85,000</div>
+                            <div class="service-duration">
+                                <i class="fas fa-clock"></i>
+                                <span>50 min</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="service-content">
+                        <h3 class="service-name">Modern Fade</h3>
+                        <button class="service-btn" onclick="toggleDetail(this)">Detail Layanan</button>
+                        <div class="service-detail" style="display:none;">
+                            Potongan rambut stylish dengan gradasi rapi dari tipis ke tebal, memberi tampilan modern dan
+                            segar.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="img/beardtrim.jpg" alt="Beard Trim" />
+                        <div class="service-overlay">
+                            <div class="service-price">Rp 45,000</div>
+                            <div class="service-duration">
+                                <i class="fas fa-clock"></i>
+                                <span>30 min</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="service-content">
+                        <h3 class="service-name">Beard Trim</h3>
+                        <button class="service-btn" onclick="toggleDetail(this)">Detail Layanan</button>
+                        <div class="service-detail" style="display:none;">
+                            Perapian jenggot agar tampak rapi, bersih, dan sesuai bentuk wajah untuk tampilan yang
+                            maskulin.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="img/premiun.jpg" alt="Premiun Package" />
+                        <div class="service-overlay">
+                            <div class="service-price">Rp 150,000</div>
+                            <div class="service-duration">
+                                <i class="fas fa-clock"></i>
+                                <span>90 min</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="service-content">
+                        <h3 class="service-name">Premium Package</h3>
+                        <button class="service-btn" onclick="toggleDetail(this)">Detail Layanan</button>
+                        <div class="service-detail" style="display:none;">
+                            Paket perawatan lengkap mulai dari potong rambut, perapian jenggot, hingga styling premium
+                            untuk tampilan maksimal.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="img/hairwash.jpeg" alt="Hair Wash & Style" />
+                        <div class="service-overlay">
+                            <div class="service-price">Rp 35,000</div>
+                            <div class="service-duration">
+                                <i class="fas fa-clock"></i>
+                                <span>25 min</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="service-content">
+                        <h3 class="service-name">Hair Wash & Style</h3>
+                        <button class="service-btn" onclick="toggleDetail(this)">Detail Layanan</button>
+                        <div class="service-detail" style="display:none;">
+                            Cuci rambut menyegarkan dilanjutkan dengan penataan stylish untuk tampilan rapi dan percaya
+                            diri sepanjang hari.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="img/kids.jpg" alt="Kids Cut" />
+                        <div class="service-overlay">
+                            <div class="service-price">Rp 50,000</div>
+                            <div class="service-duration">
+                                <i class="fas fa-clock"></i>
+                                <span>35 min</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="service-content">
+                        <h3 class="service-name">Kids Cut</h3>
+                        <button class="service-btn" onclick="toggleDetail(this)">Detail Layanan</button>
+                        <div class="service-detail" style="display:none;">
+                            Potongan rambut rapi dan nyaman untuk anak-anak, dengan gaya yang lucu dan mudah diatur.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="gallery">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Portfolio Karya</h2>
+                <p class="section-subtitle">
+                    Lihat hasil kerja terbaik kami dan dapatkan inspirasi untuk gaya rambut Anda
+                </p>
+            </div>
+
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="img/mohawk.jpg" alt="Mohawk" />
+                    <div class="gallery-overlay">
+                        <button class="gallery-btn">Lihat Detail</button>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="img/buzzcut.jpg" alt="Buzzcut" />
+                    <div class="gallery-overlay">
+                        <button class="gallery-btn">Lihat Detail</button>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="img/mullet.jpg" alt="Mullet" />
+                    <div class="gallery-overlay">
+                        <button class="gallery-btn">Lihat Detail</button>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="img/comma.jpg" alt="Comma Hair" />
+                    <div class="gallery-overlay">
+                        <button class="gallery-btn">Lihat Detail</button>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="img/undercut.jpg" alt="Undercut Modern" />
+                    <div class="gallery-overlay">
+                        <button class="gallery-btn">Lihat Detail</button>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="img/bursfade.jpg" alt="bursfade" />
+                    <div class="gallery-overlay">
+                        <button class="gallery-btn">Lihat Detail</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="capster" class="capster">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Capster Kami</h2>
+                <p class="section-subtitle">
+                    Kenali tim capster profesional kami yang siap melayani Anda
+                </p>
+            </div>
+            <div class="capster-grid">
+                <!-- Tambahkan profil capster di sini -->
+                <div class="capster-card">
+                    <img src="img/comma.jpg" alt="Capster 1" />
+                    <h3 class="capster-name">Budi Santoso</h3>
+                    <p class="capster-role">Senior Barber</p>
+                </div>
+                <div class="capster-card">
+                    <img src="img/modern.jpg" alt="Capster 2" />
+                    <h3 class="capster-name">Andi Wijaya</h3>
+                    <p class="capster-role">Stylist</p>
+                </div>
+                <!-- Tambahkan capster lain sesuai kebutuhan -->
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2 class="section-title">Tentang Barber</h2>
+                    <p class="about-description">
+                        EliteBarber hadir sebagai barbershop premium yang mengutamakan kualitas dan kepuasan pelanggan.
+                        Dengan pengalaman lebih dari 5 tahun, kami telah melayani ribuan pelanggan dengan hasil yang
+                        memuaskan.
+                    </p>
+                    <p class="about-description">
+                        Tim barber profesional kami selalu mengikuti tren terkini dan menggunakan peralatan berkualitas
+                        tinggi
+                        untuk memberikan pengalaman terbaik bagi setiap pelanggan.
+                    </p>
+                    <div class="about-features">
+                        <div class="feature-item">
+                            <i class="fas fa-star"></i>
+                            <span>Premium Quality</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-award"></i>
+                            <span>Certified Barbers</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-users"></i>
+                            <span>1000+ Happy Customers</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <div class="image-container">
+                        <img src="https://images.pexels.com/photos/1570807/pexels-photo-1570807.jpeg?auto=compress&cs=tinysrgb&w=600"
+                            alt="Barbershop interior">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Hubungi Kami</h2>
+                <p class="section-subtitle">
+                    Siap untuk mendapatkan potongan rambut terbaik? Hubungi kami sekarang!
+                </p>
+            </div>
+
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h3 class="contact-title">Lokasi</h3>
+                    <p class="contact-text">Jl. Perjuangan No. 13<br>Kota Medan, 10220</p>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <h3 class="contact-title">Telepon</h3>
+                    <p class="contact-text">+62 813-8549-7404<br>+62 21-1234-5678</p>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3 class="contact-title">Jam Buka</h3>
+                    <p class="contact-text">Sen - Sab: 09:00 - 21:00<br>Minggu: 10:00 - 18:00</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <i class="fas fa-cut"></i>
+                        <span>Barber</span>
+                    </div>
+                    <p class="footer-description">
+                        Barbershop premium dengan pelayanan terbaik dan hasil yang memuaskan.
+                        Kepercayaan Anda adalah prioritas utama kami.
+                    </p>
+                    <div class="footer-social">
+                        <a href="#" class="social-link">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h3 class="footer-title">Layanan</h3>
+                    <ul class="footer-list">
+                        <li><a href="#services" class="footer-link">Classic Cut</a></li>
+                        <li><a href="#services" class="footer-link">Modern Fade</a></li>
+                        <li><a href="#services" class="footer-link">Beard Trim</a></li>
+                        <li><a href="#services" class="footer-link">Premium Package</a></li>
+                        <li><a href="#services" class="footer-link">Hair Wash & Style</a></li>
+                        <li><a href="#services" class="footer-link">Kids Cut</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h3 class="footer-title">Kontak</h3>
+                    <ul class="footer-list">
+                        <li>Jl. Perjuangan No. 13</li>
+                        <li>Kota Medan 10220</li>
+                        <li>+62 813-8549-7404</li>
+                        <li>info@barber.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Barber. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        function toggleDetail(btn) {
+            const detail = btn.nextElementSibling;
+            if (detail.style.display === "none" || detail.style.display === "") {
+                detail.style.display = "block";
+                btn.textContent = "Tutup Detail";
+            } else {
+                detail.style.display = "none";
+                btn.textContent = "Detail Layanan";
+            }
+        }
+    </script>
+</body>
+
+</html>
