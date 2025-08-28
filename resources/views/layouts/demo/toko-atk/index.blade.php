@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>E-Katalog ATK</title>
+  <link rel="stylesheet" href="{{asset('assets/demo/atk/style.css')}}" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <header>
+    <h1>E-Katalog Alat Tulis Kantor</h1>
+  </header>
+
+  <section class="controls">
+    <select id="kategori" onchange="filterProduk()">
+      <option value="semua">Semua Kategori</option>
+      <option value="Alat Tulis">Alat Tulis</option>
+      <option value="Penjilidan dan Penyimpanan">Penjilidan dan Penyimpanan</option>
+      <option value="Produk Kertas">Produk Kertas</option>
+      <option value="Perekat dan Label">Perekat dan Label</option>
+      <option value="Pemotong Kertas">Pemotong Kertas</option>
+    </select>
+    <input type="text" id="pencarian" placeholder="Cari produk..." oninput="filterProduk()"/>
+  </section>
+
+  <main id="katalog" class="catalog"></main>
+
+  <!-- Modal -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="tutupModal()">&times;</span>
+      <img id="modal-gambar" src="" alt="" />
+      <h2 id="modal-nama"></h2>
+      <p id="modal-harga"></p>
+      <p id="modal-deskripsi"></p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

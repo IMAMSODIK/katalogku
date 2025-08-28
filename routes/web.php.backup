@@ -1,0 +1,495 @@
+<?php
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\GoogleController;
+use App\Http\Controllers\PasswordResetController;
+use App\Http\Controllers\StoreCategoryController;
+use App\Http\Controllers\CatalogTemplateController;
+use App\Http\Controllers\DemoController;
+use App\Http\Controllers\LandingPageController;
+use App\Http\Controllers\MidtransController;
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider and all of them will
+| be assigned to the "web" middleware group. Make something great!
+|
+*/
+
+foreach (config('tenancy.central_domains') as $domain) {
+    Route::domain($domain)->group(function () {
+        // ========================================
+        // PUBLIC ROUTES (Landing Page)
+        // ========================================
+
+        Route::get('/', [LandingPageController::class, 'index'])->name('home');
+        Route::get('/welcome', [LandingPageController::class, 'index'])->name('welcome');
+
+        // ========================================
+        // DEMO ROUTES
+        // ========================================
+
+        Route::get('/demo/{slug}', [DemoController::class, 'show'])->name('demo.show');
+
+        // ========================================
+        // MIDTRANS NOTIFICATION ROUTES
+        // ========================================
+
+        Route::post('/midtrans/notification', [MidtransController::class, 'notificationHandler']);
+        Route::post('/midtrans/test', [MidtransController::class, 'test']);
+
+        // ========================================
+        // TESTING ROUTES (Development Only)
+        // ========================================
+
+        Route::get('/test/payment-success', function () {
+            // Simulate successful payment for testing
+            return view('pages.checkout.success', [
+                'payment_status' => 'paid',
+                'order_id' => 'TEST-' . time(),
+                'template_name' => 'Template Toko Komputer',
+                'total_amount' => 'Rp 150.000',
+                'purchase_data' => null // For testing without actual purchase data
+            ]);
+        })->name('test.payment.success');
+
+        Route::get('/test/payment-pending', function () {
+            return view('pages.checkout.success', [
+                'payment_status' => 'pending',
+                'order_id' => 'TEST-' . time(),
+                'template_name' => 'Template Toko Komputer',
+                'total_amount' => 'Rp 150.000',
+                'purchase_data' => null
+            ]);
+        })->name('test.payment.pending');
+
+        Route::get('/test/payment-failed', function () {
+            return view('pages.checkout.success', [
+                'payment_status' => 'failed',
+                'order_id' => 'TEST-' . time(),
+                'template_name' => 'Template Toko Komputer',
+                'total_amount' => 'Rp 150.000',
+                'purchase_data' => null
+            ]);
+        })->name('test.payment.failed');
+
+        // ========================================
+        // STATIC PAGES
+        // ========================================
+
+        // About page
+        Route::get('/about', function () {
+            return view('pages.about');
+        })->name('about');
+
+        // Features page
+        Route::get('/features', function () {
+            return view('pages.features');
+        })->name('features');
+
+        // Pricing page
+        Route::get('/pricing', function () {
+            return view('pages.pricing');
+        })->name('pricing');
+
+        // Contact page
+        Route::get('/contact', function () {
+            return view('pages.contact');
+        })->name('contact');
+
+        // ========================================
+        // AUTHENTICATION ROUTES
+        // ========================================
+
+        Route::middleware('guest')->group(function () {
+            // Registration Routes
+            Route::get('register', [AuthController::class, 'create'])->name('register');
+            Route::post('register', [AuthController::class, 'store'])->name('register.post');
+
+            // Login Routes
+            Route::get('login', [AuthController::class, 'login'])->name('login');
+            Route::post('login', [AuthController::class, 'attempt'])->name('login.post');
+
+            // Password Reset Routes
+            Route::get('forgot-password', [PasswordResetController::class, 'showLinkRequestForm'])->name('password.request');
+            Route::post('forgot-password', [PasswordResetController::class, 'sendResetLinkEmail'])->name('password.email');
+            Route::get('reset-password/{token}', [PasswordResetController::class, 'showResetForm'])->name('password.reset');
+            Route::post('reset-password', [PasswordResetController::class, 'reset'])->name('password.update');
+        });
+
+        Route::post('logout', [AuthController::class, 'logout'])->middleware('auth')->name('logout');
+
+        // Google OAuth routes
+        Route::get('/auth/google', [GoogleController::class, 'redirectToGoogle'])->name('google.login');
+        Route::get('/auth/google/callback', [GoogleController::class, 'handleGoogleCallback'])->name('google.callback');
+        Route::post('/auth/google/register', [GoogleController::class, 'handleGoogleRegister'])->name('google.register');
+
+        // ========================================
+        // AUTHENTICATED USER ROUTES
+        // ========================================
+
+        Route::middleware(['auth'])->group(function () {
+
+            // Dashboard
+            Route::get('/dashboard', function () {
+                return view('dashboard.index');
+            })->name('dashboard');
+
+            // ========================================
+            // PROFILE MANAGEMENT
+            // ========================================
+
+            // Profile routes
+            Route::get('/profile', function () {
+                return view('profile.index');
+            })->name('profile');
+
+            Route::put('/profile', function (Request $request) {
+                // Update profile logic
+                return back()->with('success', 'Profile updated successfully!');
+            })->name('profile.update');
+
+            // ========================================
+            // STORE MANAGEMENT
+            // ========================================
+
+            // Store listing
+            Route::get('/store', function () {
+                return view('store.index');
+            })->name('store.index');
+
+            // Create store
+            Route::get('/store/create', function () {
+                return view('store.create');
+            })->name('store.create');
+
+            Route::post('/store', function (Request $request) {
+                // Create store logic
+                return redirect()->route('store.index')->with('success', 'Store created successfully!');
+            })->name('store.store');
+
+            // Edit store
+            Route::get('/store/{id}/edit', function ($id) {
+                return view('store.edit', compact('id'));
+            })->name('store.edit');
+
+            // Update store
+            Route::put('/store/{id}', function (Request $request, $id) {
+                // Update store logic
+                return redirect()->route('store.index')->with('success', 'Store updated successfully!');
+            })->name('store.update');
+
+            // Delete store
+            Route::delete('/store/{id}', function ($id) {
+                // Delete store logic
+                return redirect()->route('store.index')->with('success', 'Store deleted successfully!');
+            })->name('store.destroy');
+
+            // ========================================
+            // TEMPLATE CUSTOMIZATION ROUTES
+            // ========================================
+
+            // Template selection
+            Route::get('/templates', function () {
+                return view('templates.index');
+            })->name('templates.index');
+
+            // Food & Beverage template customization
+            Route::get('/customize/fnb', function () {
+                return view('customize.fnb');
+            })->name('customize.fnb');
+
+            // Technology store template customization
+            Route::get('/customize/tech', function () {
+                return view('customize.tech');
+            })->name('customize.tech');
+
+            // Barber shop template customization
+            Route::get('/customize/barber', function () {
+                return view('customize.barber');
+            })->name('customize.barber');
+
+            // Phone accessories template customization
+            Route::get('/customize/aksesoris-hp', function () {
+                return view('customize.aksesoris-hp');
+            })->name('customize.aksesoris-hp');
+
+            // Car accessories template customization
+            Route::get('/customize/aksesoris-mobil', function () {
+                return view('customize.aksesoris-mobil');
+            })->name('customize.aksesoris-mobil');
+
+            // Fashion store template customization
+            Route::get('/customize/fashion', function () {
+                return view('customize.fashion');
+            })->name('customize.fashion');
+
+            // Save template customization
+            Route::post('/customize/save', function (Request $request) {
+                // Save customization logic
+                return response()->json(['success' => true, 'message' => 'Template saved successfully!']);
+            })->name('customize.save');
+
+            // ========================================
+            // CATALOG MANAGEMENT ROUTES
+            // ========================================
+
+            // Catalog listing
+            Route::get('/catalogs', function () {
+                return view('catalogs.index');
+            })->name('catalogs.index');
+
+            // Create catalog
+            Route::get('/catalogs/create', function () {
+                return view('catalogs.create');
+            })->name('catalogs.create');
+
+            Route::post('/catalogs', function (Request $request) {
+                // Create catalog logic
+                return redirect()->route('catalogs.index')->with('success', 'Catalog created successfully!');
+            })->name('catalogs.store');
+
+            // View catalog
+            Route::get('/catalogs/{id}', function ($id) {
+                return view('catalogs.show', compact('id'));
+            })->name('catalogs.show');
+
+            // Edit catalog
+            Route::get('/catalogs/{id}/edit', function ($id) {
+                return view('catalogs.edit', compact('id'));
+            })->name('catalogs.edit');
+
+            // Update catalog
+            Route::put('/catalogs/{id}', function (Request $request, $id) {
+                // Update catalog logic
+                return redirect()->route('catalogs.index')->with('success', 'Catalog updated successfully!');
+            })->name('catalogs.update');
+
+            // Delete catalog
+            Route::delete('/catalogs/{id}', function ($id) {
+                // Delete catalog logic
+                return redirect()->route('catalogs.index')->with('success', 'Catalog deleted successfully!');
+            })->name('catalogs.destroy');
+
+            // Publish catalog
+            Route::post('/catalogs/{id}/publish', function ($id) {
+                // Publish catalog logic
+                return back()->with('success', 'Catalog published successfully!');
+            })->name('catalogs.publish');
+
+            // Unpublish catalog
+            Route::post('/catalogs/{id}/unpublish', function ($id) {
+                // Unpublish catalog logic
+                return back()->with('success', 'Catalog unpublished successfully!');
+            })->name('catalogs.unpublish');
+
+            // ========================================
+            // PRODUCT MANAGEMENT ROUTES
+            // ========================================
+
+            // Products routes
+            Route::get('/products', function () {
+                return view('products.index');
+            })->name('products.index');
+
+            Route::get('/products/create', function () {
+                return view('products.create');
+            })->name('products.create');
+
+            Route::post('/products', function (Request $request) {
+                // Create product logic
+                return redirect()->route('products.index')->with('success', 'Product created successfully!');
+            })->name('products.store');
+
+            Route::get('/products/{id}', function ($id) {
+                return view('products.show', compact('id'));
+            })->name('products.show');
+
+            Route::get('/products/{id}/edit', function ($id) {
+                return view('products.edit', compact('id'));
+            })->name('products.edit');
+
+            Route::put('/products/{id}', function (Request $request, $id) {
+                // Update product logic
+                return redirect()->route('products.index')->with('success', 'Product updated successfully!');
+            })->name('products.update');
+
+            Route::delete('/products/{id}', function ($id) {
+                // Delete product logic
+                return redirect()->route('products.index')->with('success', 'Product deleted successfully!');
+            })->name('products.destroy');
+
+            // Product categories
+            Route::get('/categories', function () {
+                return view('categories.index');
+            })->name('categories.index');
+
+            Route::post('/categories', function (Request $request) {
+                // Create category logic
+                return back()->with('success', 'Category created successfully!');
+            })->name('categories.store');
+
+            Route::put('/categories/{id}', function (Request $request, $id) {
+                // Update category logic
+                return back()->with('success', 'Category updated successfully!');
+            })->name('categories.update');
+
+            Route::delete('/categories/{id}', function ($id) {
+                // Delete category logic
+                return back()->with('success', 'Category deleted successfully!');
+            })->name('categories.destroy');
+
+            // ========================================
+            // ORDER MANAGEMENT ROUTES
+            // ========================================
+
+            // Orders routes
+            Route::get('/orders', function () {
+                return view('orders.index');
+            })->name('orders.index');
+
+            Route::get('/orders/{id}', function ($id) {
+                return view('orders.show', compact('id'));
+            })->name('orders.show');
+
+            Route::put('/orders/{id}/status', function (Request $request, $id) {
+                // Update order status logic
+                return back()->with('success', 'Order status updated successfully!');
+            })->name('orders.update-status');
+
+            // ========================================
+            // ANALYTICS & REPORTS ROUTES
+            // ========================================
+
+            // Analytics dashboard
+            Route::get('/analytics', function () {
+                return view('analytics.index');
+            })->name('analytics.index');
+
+            // Sales reports
+            Route::get('/reports/sales', function () {
+                return view('reports.sales');
+            })->name('reports.sales');
+
+            // Product performance reports
+            Route::get('/reports/products', function () {
+                return view('reports.products');
+            })->name('reports.products');
+
+            // Export reports
+            Route::get('/reports/export/{type}', function ($type) {
+                // Export logic (PDF, Excel, etc.)
+                return response()->download(storage_path('app/reports/report.pdf'));
+            })->name('reports.export');
+
+            // ========================================
+            // PAYMENT ROUTES
+            // ========================================
+
+            // Create payment transaction
+            Route::post('/payment/create', function (Request $request) {
+                // Create payment logic
+                return response()->json(['success' => true, 'payment_url' => 'https://app.sandbox.midtrans.com/snap/v1/transactions/...']);
+            })->name('payment.create');
+
+            // Midtrans payment callback
+            Route::post('/payment/callback', function (Request $request) {
+                // Handle payment callback from Midtrans
+                return response()->json(['success' => true]);
+            })->name('payment.callback');
+
+            // Payment success page
+            Route::get('/payment/success', function () {
+                return view('payment.success');
+            })->name('payment.success');
+
+            // Payment failed page
+            Route::get('/payment/failed', function () {
+                return view('payment.failed');
+            })->name('payment.failed');
+
+            // Payment pending page
+            Route::get('/payment/pending', function () {
+                return view('payment.pending');
+            })->name('payment.pending');
+
+            // ========================================
+            // STORE SETUP ROUTES (POST-PAYMENT)
+            // ========================================
+
+            // Store setup form after payment
+            Route::get('/store-setup', [App\Http\Controllers\StoreSetupController::class, 'showForm'])->name('store.setup.form');
+            Route::post('/store-setup/process', [App\Http\Controllers\StoreSetupController::class, 'processForm'])->name('store.setup.process');
+            Route::get('/api/store-setup/check-subdomain', [App\Http\Controllers\StoreSetupController::class, 'checkSubdomain'])->name('store.setup.check-subdomain');
+
+            // Test route for store setup flow
+            Route::get('/test-store-setup', function () {
+                // Create a test payment record for demonstration
+                $testUser = \App\Models\User::firstOrCreate(
+                    ['email' => 'test-store@example.com'],
+                    [
+                        'name' => 'Test Store Owner',
+                        'email' => 'test-store@example.com',
+                        'password' => bcrypt('password'),
+                        'email_verified_at' => now()
+                    ]
+                );
+
+                $orderId = 'TEST-STORE-' . time();
+                $payment = \App\Models\Payment::create([
+                    'transaction_id' => $orderId,
+                    'user_id' => $testUser->id,
+                    'catalog_template_id' => 1,
+                    'store_name' => 'Test Store - ' . $orderId, // Add required store_name field
+                    'amount' => 150000,
+                    'final_amount' => 150000,
+                    'payment_method' => 'test',
+                    'status' => 'paid',
+                    'payment_details' => [
+                        'test' => true,
+                        'template_name' => 'Test Store Template'
+                    ]
+                ]);
+
+                return redirect()->route('store.setup.form', ['order_id' => $orderId]);
+            })->name('test.store.setup');
+
+            // ========================================
+            // SETTINGS ROUTES
+            // ========================================
+
+            // General settings
+            Route::get('/settings', function () {
+                return view('settings.index');
+            })->name('settings.index');
+
+            // Save settings
+            Route::post('/settings', function (Request $request) {
+                // Save settings logic
+                return back()->with('success', 'Settings saved successfully!');
+            })->name('settings.save');
+
+            // Account settings
+            Route::get('/settings/account', function () {
+                return view('settings.account');
+            })->name('settings.account');
+
+            // Notification settings
+            Route::get('/settings/notifications', function () {
+                return view('settings.notifications');
+            })->name('settings.notifications');
+
+            // Privacy settings
+            Route::get('/settings/privacy', function () {
+                return view('settings.privacy');
+            })->name('settings.privacy');
+        });
+    });
+}
