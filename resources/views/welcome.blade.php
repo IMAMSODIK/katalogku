@@ -34,7 +34,7 @@
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/public.css') }}">
 </head>
 
 <body class="landing-page">
@@ -83,7 +83,7 @@
                     @auth
                         <!-- Profile Dropdown for Authenticated Users -->
                         <div class="dropdown">
-                            <button class="btn btn-outline-primary dropdown-toggle d-flex align-items-center gap-2"
+                            <button class="btn btn-outline-success dropdown-toggle d-flex align-items-center gap-2"
                                 type="button" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                                 @if (Auth::user()->avatar && !empty(Auth::user()->avatar))
                                     <img src="{{ Auth::user()->avatar }}" alt="Avatar" class="rounded-circle"
@@ -129,7 +129,7 @@
                         </div>
                     @else
                         <!-- Login Button for Guests -->
-                        <button class="btn btn-outline-primary" onclick="showLogin()">Masuk</button>
+                        <button class="btn btn-outline-success" onclick="showLogin()">Masuk</button>
                     @endauth
                 </div>
             </div>

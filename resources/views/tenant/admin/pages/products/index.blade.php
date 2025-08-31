@@ -209,12 +209,12 @@
                                     <label class="form-label">Spesifikasi</label>
                                     <div id="add_specification_fields">
                                         <div class="input-group mb-2">
-                                            <input type="text" class="form-control" name="specification[0][key]"
+                                            {{-- <input type="text" class="form-control" name="specification[0][key]"
                                                 placeholder="Key (e.g., CPU)">
                                             <input type="text" class="form-control" name="specification[0][value]"
-                                                placeholder="Value (e.g., i5-12500h)">
-                                            <button type="button" class="btn btn-outline-danger remove-spec-field"><i
-                                                    class="fa fa-times"></i></button>
+                                                placeholder="Value (e.g., i5-12500h)"> --}}
+                                            {{-- <button type="button" class="btn btn-outline-danger remove-spec-field"><i
+                                                    class="fa fa-times"></i></button> --}}
                                         </div>
                                     </div>
                                     <button type="button" class="btn btn-sm btn-outline-primary"

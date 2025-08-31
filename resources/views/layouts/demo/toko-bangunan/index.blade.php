@@ -15,8 +15,8 @@
         <div class="header-container">
             <div class="header-top">
                 <div class="logo">
-                    <img src="image/logo_helm.png" alt="Logo Helm" class="logo-image"
-                        style="width: 50px; height: 50px; background: transparent;">
+                    <img src="{{ asset('assets/demo/toko-bangunan/image/logo_helm.png') }}" alt="Logo Helm"
+                        class="logo-image" style="width: 50px; height: 50px; background: transparent;">
                     <div class="logo-text">E-KATALOG TOKO BANGUNAN</div>
                 </div>
             </div>
@@ -179,8 +179,8 @@
         <div class="footer-container">
             <div class="footer-section">
                 <div class="footer-logo">
-                    <img src="image/logo_helm.png" alt="Logo Helm" class="footer-logo-image"
-                        style="width: 150px; height: 150px; background: transparent;">
+                    <img src="{{ asset('assets/demo/toko-bangunan/image/logo_helm.png') }}" alt="Logo Helm"
+                        class="footer-logo-image" style="width: 150px; height: 150px; background: transparent;">
                     <h3 class="footer-logo-text">E-Katalog Toko Bangunan</h3>
                 </div>
             </div>

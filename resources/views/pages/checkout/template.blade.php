@@ -136,9 +136,11 @@
                             <i data-lucide="credit-card" class="h-5 w-5 inline mr-2"></i>
                             Bayar Sekarang - <span id="payment-amount"></span>
                         </button>
-                        <p class="text-xs text-gray-500 text-center mt-2">
-                            Pembayaran aman menggunakan Midtrans
-                        </p>
+                        <center>
+                            <i class="text-xs text-gray-500 mt-2">
+                                -- Create your domain after payments --
+                        </center>
+                        </i>
                     </div>
                 </div>
             </div>

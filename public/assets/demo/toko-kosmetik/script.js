@@ -599,24 +599,9 @@ function initializeApp() {
     initializeEventListeners();
     initializeNavigation();
     initializeScrollEffects();
-    
+
     // Show welcome message
     showWelcomeMessage();
-}
-
-function showWelcomeMessage() {
-    Swal.fire({
-        title: 'Selamat Datang di Canu Cosmetics!',
-        text: 'Temukan produk kecantikan terbaik untuk tampil percaya diri setiap hari.',
-        icon: 'success',
-        confirmButtonText: 'Mulai Belanja',
-        confirmButtonColor: '#d63384',
-        background: '#fff',
-        customClass: {
-            popup: 'rounded-custom',
-            confirmButton: 'btn btn-primary'
-        }
-    });
 }
 
 // Event Listeners
@@ -668,7 +653,7 @@ function initializeEventListeners() {
 // Navigation Effects
 function initializeNavigation() {
     const navbar = document.querySelector('.navbar');
-    
+
     window.addEventListener('scroll', function() {
         if (window.scrollY > 100) {
             navbar.classList.add('scrolled');
@@ -727,7 +712,7 @@ function renderProducts() {
     const productsHTML = currentProducts.map(product => {
         const discountPercent = Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100);
         const stars = generateStars(product.rating);
-        
+
         return `
             <div class="col-lg-4 col-md-6 mb-4">
                 <div class="product-card h-100" data-aos="fade-up">
@@ -746,8 +731,8 @@ function renderProducts() {
                         </div>
                         <div class="product-price">
                             <span class="current-price">Rp ${formatPrice(product.price)}</span>
-                            ${product.originalPrice > product.price ? 
-                                `<span class="original-price">Rp ${formatPrice(product.originalPrice)}</span>` : 
+                            ${product.originalPrice > product.price ?
+                                `<span class="original-price">Rp ${formatPrice(product.originalPrice)}</span>` :
                                 ''
                             }
                         </div>
@@ -779,20 +764,20 @@ function generateStars(rating, size = 'normal') {
     const hasHalfStar = rating % 1 !== 0;
     let stars = '';
     const sizeClass = size === 'small' ? ' style="font-size: 0.8em;"' : '';
-    
+
     for (let i = 0; i < fullStars; i++) {
         stars += `<i class="fas fa-star"${sizeClass}></i>`;
     }
-    
+
     if (hasHalfStar) {
         stars += `<i class="fas fa-star-half-alt"${sizeClass}></i>`;
     }
-    
+
     const emptyStars = 5 - Math.ceil(rating);
     for (let i = 0; i < emptyStars; i++) {
         stars += `<i class="far fa-star"${sizeClass}></i>`;
     }
-    
+
     return stars;
 }
 
@@ -871,7 +856,7 @@ function handleViewToggle(e) {
             btn.classList.remove('active');
         });
         e.target.classList.add('active');
-        
+
         // Update grid classes based on view
         if (productGrid) {
             if (viewType === 'list') {
@@ -893,10 +878,10 @@ function handleCategoryClick(e) {
             categoryFilter.value = category;
         }
         filterProducts();
-        
+
         // Scroll to products section
-        document.getElementById('products').scrollIntoView({ 
-            behavior: 'smooth' 
+        document.getElementById('products').scrollIntoView({
+            behavior: 'smooth'
         });
     }
 }
@@ -907,7 +892,7 @@ function filterProducts() {
                             product.brand.toLowerCase().includes(currentSearchTerm) ||
                             product.description.toLowerCase().includes(currentSearchTerm) ||
                             product.tags.some(tag => tag.toLowerCase().includes(currentSearchTerm));
-        
+
         let matchesCategory;
         if (currentCategory === 'all') {
             matchesCategory = true;
@@ -925,10 +910,10 @@ function filterProducts() {
         } else {
             matchesCategory = product.category === currentCategory;
         }
-        
+
         return matchesSearch && matchesCategory;
     });
-    
+
     sortProducts();
     renderProducts();
 }
@@ -957,7 +942,7 @@ function updateResultsCount() {
     if (resultsCount) {
         resultsCount.textContent = `Menampilkan ${currentProducts.length} dari ${products.length} produk`;
     }
-    
+
     // Control load more button visibility
     const loadMoreBtn = document.getElementById('loadMoreBtn');
     if (loadMoreBtn) {
@@ -996,8 +981,8 @@ function showProductDetail(productId) {
                                 </div>
                                 <div class="product-price mb-3">
                                     <span class="current-price h4">Rp ${formatPrice(product.price)}</span>
-                                    ${product.originalPrice > product.price ? 
-                                        `<span class="original-price ms-2">Rp ${formatPrice(product.originalPrice)}</span>` : 
+                                    ${product.originalPrice > product.price ?
+                                        `<span class="original-price ms-2">Rp ${formatPrice(product.originalPrice)}</span>` :
                                         ''
                                     }
                                 </div>
@@ -1039,7 +1024,7 @@ function showProductDetail(productId) {
 
     // Add new modal
     document.body.insertAdjacentHTML('beforeend', modalContent);
-    
+
     // Show modal
     const modal = new bootstrap.Modal(document.getElementById('productDetailModal'));
     modal.show();
@@ -1047,7 +1032,7 @@ function showProductDetail(productId) {
 
 function getSimilarProducts(currentProductId, category) {
     // Get products from the same category, excluding current product
-    const similarProducts = products.filter(p => 
+    const similarProducts = products.filter(p =>
         p.category === category && p.id !== currentProductId
     ).slice(0, 4); // Limit to 4 products
 
@@ -1101,9 +1086,9 @@ function closeModal() {
 function toggleWishlist(productId) {
     const product = products.find(p => p.id === productId);
     if (!product) return;
-    
+
     const index = wishlist.findIndex(item => item.id === productId);
-    
+
     if (index > -1) {
         wishlist.splice(index, 1);
         showSuccessMessage(`${product.name} dihapus dari wishlist!`);
@@ -1111,7 +1096,7 @@ function toggleWishlist(productId) {
         wishlist.push(product);
         showSuccessMessage(`${product.name} ditambahkan ke wishlist!`);
     }
-    
+
     updateWishlistStorage();
     updateWishlistCount();
     renderProducts();
@@ -1187,12 +1172,12 @@ function removeFromWishlist(productId) {
     updateWishlistStorage();
     updateWishlistCount();
     showSuccessMessage('Produk berhasil dihapus dari wishlist!');
-    
+
     // Refresh wishlist modal if open
     if (document.querySelector('.swal2-container')) {
         showWishlist();
     }
-    
+
     renderProducts();
 }
 
@@ -1309,17 +1294,17 @@ function submitContactForm() {
             const name = document.getElementById('contactName').value;
             const email = document.getElementById('contactEmail').value;
             const message = document.getElementById('contactMessage').value;
-            
+
             if (!name || !email || !message) {
                 Swal.showValidationMessage('Semua field harus diisi!');
                 return false;
             }
-            
+
             if (!isValidEmail(email)) {
                 Swal.showValidationMessage('Format email tidak valid!');
                 return false;
             }
-            
+
             return { name, email, message };
         }
     }).then((result) => {
@@ -1376,7 +1361,7 @@ function showLoading() {
 function loadMoreProducts() {
     // For now, just show all products
     filterProducts();
-    
+
     // Hide the load more button since we're showing all products
     const loadMoreBtn = document.getElementById('loadMoreBtn');
     if (loadMoreBtn) {
@@ -1389,31 +1374,31 @@ function clearAllFilters() {
     currentCategory = 'all';
     currentSearchTerm = '';
     currentSort = 'name';
-    
+
     // Reset form elements
     if (searchInput) searchInput.value = '';
     if (categoryFilter) categoryFilter.value = 'all';
     if (sortFilter) sortFilter.value = 'name';
-    
+
     // Reset category buttons
     document.querySelectorAll('.category-btn').forEach(btn => {
         btn.classList.remove('active');
     });
     document.querySelector('.category-btn[data-category="all"]')?.classList.add('active');
-    
+
     filterProducts();
 }
 
 // Change View Function
 function changeView(viewType) {
     currentView = viewType;
-    
+
     // Update view toggle buttons
     document.querySelectorAll('.view-toggle .btn').forEach(btn => {
         btn.classList.remove('active');
     });
     document.querySelector(`.view-toggle .btn[onclick="changeView('${viewType}')"]`)?.classList.add('active');
-    
+
     // Apply view changes (for future implementation)
     const grid = document.getElementById('productsGrid');
     if (grid) {

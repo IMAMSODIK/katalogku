@@ -14,17 +14,17 @@
             </div>
         </form>
         <div class="header-logo-wrapper col-auto p-0">
-            <div class="logo-wrapper"> 
+            <div class="logo-wrapper">
                 <a href="{{ url('/') }}">
-                    @if(isset($userStore) && $userStore->store_logo)
-                        <img class="img-fluid for-light rounded" src="{{ asset('storage/' . $userStore->store_logo) }}" 
-                             alt="{{ $userStore->store_name ?? 'Store Logo' }}" width="100" height="40">
+                    @if (isset($userStore) && $userStore->store_logo)
+                        <img class="img-fluid for-light rounded" src="{{ asset('storage/' . $userStore->store_logo) }}"
+                            alt="{{ $userStore->store_name ?? 'Store Logo' }}" width="100" height="40">
                     @else
-                        <img class="img-fluid for-light" src="{{ asset('assets/riho-asset/images/logo/logo_dark.png') }}" 
-                             alt="logo-light">
+                        <img class="img-fluid for-light"
+                            src="{{ asset('assets/riho-asset/images/logo/logo_dark.png') }}" alt="logo-light">
                     @endif
-                    <img class="img-fluid for-dark" src="{{ asset('assets/riho-asset/images/logo/logo.png') }}" 
-                         alt="logo-dark">
+                    <img class="img-fluid for-dark" src="{{ asset('assets/riho-asset/images/logo/logo.png') }}"
+                        alt="logo-dark">
                 </a>
             </div>
             <div class="toggle-sidebar"> <i class="status_toggle middle sidebar-toggle" data-feather="align-center"></i>
@@ -336,17 +336,17 @@
                 </li>
                 <li class="profile-nav onhover-dropdown">
                     <div class="media profile-media">
-                        @if(isset($userStore) && isset($userStore->user))
-                            <img class="b-r-10" src="{{ asset('assets/images/defaultfoto.png') }}" alt="{{ $userStore->user->name }}"
-                                width="40px" height="40px">
+                        @if (isset($userStore) && isset($userStore->user))
+                            <img class="b-r-10" src="{{ asset('assets/images/defaultfoto.png') }}"
+                                alt="{{ $userStore->user->name }}" width="40px" height="40px">
                             <div class="media-body d-xxl-block d-none box-col-none">
-                                <div class="d-flex align-items-center gap-2"> 
+                                <div class="d-flex align-items-center gap-2">
                                     <span>{{ $userStore->user->name }} </span>
                                     <i class="middle fa fa-angle-down"> </i>
                                 </div>
                                 <p class="mb-0 font-roboto">
-                                    @if(isset($userStore->user->roles) && $userStore->user->roles->isNotEmpty())
-                                        {{ $userStore->user->roles->first()->name }}
+                                    @if (isset($userStore->user->roles) && $userStore->user->roles->isNotEmpty())
+                                        {{ $userStore->admins->first()->name }}
                                     @else
                                         Store Admin
                                     @endif
@@ -356,7 +356,7 @@
                             <img class="b-r-10" src="{{ asset('assets/images/defaultfoto.png') }}" alt="User"
                                 width="40px" height="40px">
                             <div class="media-body d-xxl-block d-none box-col-none">
-                                <div class="d-flex align-items-center gap-2"> 
+                                <div class="d-flex align-items-center gap-2">
                                     <span>User</span>
                                     <i class="middle fa fa-angle-down"> </i>
                                 </div>
@@ -365,10 +365,12 @@
                         @endif
                     </div>
                     <ul class="profile-dropdown onhover-show-div">
-                        <li><a href="{{ route('tenant.admin.settings') }}"><i data-feather="user"></i><span>My Profile</span></a>
+                        <li><a href="{{ route('tenant.admin.settings') }}"><i data-feather="user"></i><span>My
+                                    Profile</span></a>
                         </li>
                         <li><a href="#"><i data-feather="mail"></i><span>Inbox</span></a></li>
-                        <li> <a href="{{ route('tenant.admin.settings') }}"> <i data-feather="settings"></i><span>Settings</span></a>
+                        <li> <a href="{{ route('tenant.admin.settings') }}"> <i
+                                    data-feather="settings"></i><span>Settings</span></a>
                         </li>
                         <li>
                             <form action="{{ route('logout') }}" method="POST">

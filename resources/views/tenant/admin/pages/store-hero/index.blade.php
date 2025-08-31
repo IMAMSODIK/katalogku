@@ -261,7 +261,7 @@
                         form.querySelector('#edit_order').value = hero.order;
                         form.querySelector('#edit_is_active').checked = hero.is_active;
 
-                        const assetBaseUrl = "{{ asset('storage') }}/";
+                        const assetBaseUrl = "{{ url('tenancy/assets') }}/";
                         const img = document.getElementById('current_hero_image');
 
                         if (hero.image_url) {

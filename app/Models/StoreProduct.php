@@ -165,4 +165,14 @@ class StoreProduct extends Model
         }
         return null;
     }
+
+    public function getPriceIdrAttribute(): string
+    {
+        return 'Rp ' . number_format((int) $this->price, 0, ',', '.');
+    }
+
+    public function getOldPriceIdrAttribute(): ?string
+    {
+        return $this->old_price ? 'Rp ' . number_format((int) $this->old_price, 0, ',', '.') : null;
+    }
 }

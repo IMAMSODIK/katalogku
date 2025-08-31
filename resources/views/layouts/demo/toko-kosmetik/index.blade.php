@@ -69,12 +69,6 @@
                                         <h1 class="hero-title">Temukan Kecantikan Sejati Anda</h1>
                                         <p class="hero-subtitle">Koleksi kosmetik premium untuk wanita modern yang
                                             percaya diri</p>
-                                        <div class="hero-buttons">
-                                            <button class="btn btn-primary btn-lg"
-                                                onclick="scrollToSection('products')">Jelajahi Produk</button>
-                                            <button class="btn btn-outline-light btn-lg"
-                                                onclick="openVideoModal()">Lihat Video</button>
-                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -96,10 +90,6 @@
                                     <div class="hero-content">
                                         <h1 class="hero-title">Skincare Revolusioner</h1>
                                         <p class="hero-subtitle">Formula inovatif untuk kulit sehat dan bercahaya</p>
-                                        <div class="hero-buttons">
-                                            <button class="btn btn-primary btn-lg"
-                                                onclick="filterByCategory('skincare')">Lihat Skincare</button>
-                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -118,14 +108,6 @@
                         <div class="container">
                             <div class="row align-items-center">
                                 <div class="col-lg-6">
-                                    <div class="hero-content">
-                                        <h1 class="hero-title">Makeup Profesional</h1>
-                                        <p class="hero-subtitle">Ciptakan look sempurna untuk setiap momen</p>
-                                        <div class="hero-buttons">
-                                            <button class="btn btn-primary btn-lg"
-                                                onclick="filterByCategory('makeup')">Lihat Makeup</button>
-                                        </div>
-                                    </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="hero-image">

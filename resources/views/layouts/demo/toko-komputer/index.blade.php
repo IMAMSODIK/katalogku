@@ -393,12 +393,6 @@
         </div>
     </main>
 
-    <!-- Replacing the existing checkout bubble with the universal one -->
-    @include('layouts.demo.universal-checkout-bubble', [
-        'templateSlug' => 'toko-komputer',
-    ])
-
-
     <!-- Product Modal -->
     <div id="product-modal"
         class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">

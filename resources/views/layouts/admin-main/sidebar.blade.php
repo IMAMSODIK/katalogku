@@ -85,7 +85,7 @@
 
                 <li class="sidebar-list">
                     <i class="fa fa-thumb-tack"></i>
-                    <a class="sidebar-link sidebar-title link-nav" href="/admin-main/kategori-toko">
+                    <a class="sidebar-link sidebar-title link-nav" href="/admin/kategori-toko">
                         <i class="fa fa-tags menu-icon" aria-hidden="true"></i>
                         <span>Kategori Toko</span>
                     </a>
@@ -93,7 +93,7 @@
 
                 <li class="sidebar-list">
                     <i class="fa fa-thumb-tack"></i>
-                    <a class="sidebar-link sidebar-title link-nav" href="/admin-main/template-katalog">
+                    <a class="sidebar-link sidebar-title link-nav" href="/admin/template-katalog">
                         <i class="fa fa-th menu-icon" aria-hidden="true"></i>
                         <span>Template Katalog</span>
                     </a>
@@ -101,7 +101,7 @@
 
                 <li class="sidebar-list">
                     <i class="fa fa-thumb-tack"></i>
-                    <a class="sidebar-link sidebar-title link-nav" href="/admin-main/users">
+                    <a class="sidebar-link sidebar-title link-nav" href="/admin/users">
                         <i class="fa fa-users menu-icon" aria-hidden="true"></i>
                         <span>Manajemen Pengguna</span>
                     </a>
@@ -109,7 +109,7 @@
 
                 <li class="sidebar-list">
                     <i class="fa fa-thumb-tack"></i>
-                    <a class="sidebar-link sidebar-title link-nav" href="/admin-main/stores">
+                    <a class="sidebar-link sidebar-title link-nav" href="/admin/stores">
                         <i class="fa fa-building menu-icon" aria-hidden="true"></i>
                         <span>Manajemen Toko</span>
                     </a>
@@ -117,7 +117,7 @@
 
                 <li class="sidebar-list">
                     <i class="fa fa-thumb-tack"></i>
-                    <a class="sidebar-link sidebar-title link-nav" href="/admin-main/payments">
+                    <a class="sidebar-link sidebar-title link-nav" href="/admin/payments">
                         <i class="fa fa-credit-card menu-icon" aria-hidden="true"></i>
                         <span>Manajemen Pembayaran</span>
                     </a>
@@ -125,7 +125,7 @@
 
                 <li class="sidebar-list">
                     <i class="fa fa-thumb-tack"></i>
-                    <a class="sidebar-link sidebar-title link-nav" href="/admin-main/settings">
+                    <a class="sidebar-link sidebar-title link-nav" href="/admin/settings">
                         <i class="fa fa-cogs menu-icon" aria-hidden="true"></i>
                         <span>Pengaturan Sistem</span>
                     </a>
