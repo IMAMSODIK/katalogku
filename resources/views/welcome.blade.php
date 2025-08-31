@@ -138,6 +138,27 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero-section">
+        <!-- Background: Carousel -->
+        <div class="hero-bg">
+            <div id="heroBgCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="{{ asset('assets/images/gambar1.jpg') }}" alt="slide-1">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="{{ asset('assets/images/gambar2.jpg') }}" alt="slide-2">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="{{ asset('assets/images/gambar1.jpg') }}" alt="slide-3">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Overlay hijau -->
+        <div class="hero-overlay"></div>
+
+        <!-- Dekorasi yang sudah ada -->
         <div class="hero-pattern"></div>
         <div class="floating-element floating-1"></div>
         <div class="floating-element floating-2"></div>
@@ -145,32 +166,30 @@
         <div class="floating-element floating-4"></div>
         <div class="floating-element floating-5"></div>
 
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-10">
+        <!-- Konten -->
+        <div class="container h-100">
+            <div class="row h-100 justify-content-center">
+                <div class="col-lg-10 d-flex flex-column align-items-center justify-content-center text-center">
                     <div class="hero-content">
                         <h1 class="hero-title animate__animated animate__fadeInUp">
-                            Platform Katalog Digital <span style="color: #ffecd2;">Terdepan</span>
+                            Platform Katalog Digital <span style="color: #f99a07;">Terdepan</span>
                         </h1>
                         <p class="hero-subtitle animate__animated animate__fadeInUp animate__delay-1s">
                             Hanya dengan Rp 150.000/tahun, Anda sudah dapat memiliki katalog atau menu digital yang
-                            professional untuk bisnis anda </p>
+                            professional untuk bisnis anda
+                        </p>
                         <div class="hero-buttons animate__animated animate__fadeInUp animate__delay-2s">
                             <a href="#demo" class="btn-hero btn-hero-primary">
-                                <i class="fas fa-rocket"></i>
-                                Miliki Sekarang
+                                <i class="fas fa-rocket"></i> Miliki Sekarang
                             </a>
-                            <a href="#features" class="btn-hero btn-hero-outline">
-                                Pelajari Lebih Lanjut
-                            </a>
+                            <a href="#features" class="btn-hero btn-hero-outline">Features</a>
                         </div>
                     </div>
                 </div>
             </div>
-
-
         </div>
     </section>
+
 
     <!-- Demo Section -->
     <section id="demo" class="demo-section">
@@ -426,7 +445,12 @@
             <hr class="footer-divider">
             <div class="footer-bottom">
                 <hr>
-                <p>© 2025 PT. Era Cipta Digital</p>
+                <div class="click">
+                    <a href="https://pteraciptadigital.id/about" target="_blank">
+                        © 2025 PT. Era Cipta Digital
+                    </a>
+                </div>
+
             </div>
         </div>
     </footer>
